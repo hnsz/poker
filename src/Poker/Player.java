@@ -8,6 +8,7 @@ public class Player {
     private String _nick;
     private Integer _id;
     private Table _table;
+    private PlayerStatus _status;
 
     public Player(String nick, Integer id) {
         _nick = nick;
@@ -27,5 +28,14 @@ public class Player {
             first.take(this);
 
         }
+    }
+
+    public Player setStatus(PlayerStatus status) {
+        _status = status;
+        return this;
+    }
+
+    public PlayerStatus status() {
+        return _status;
     }
 }
