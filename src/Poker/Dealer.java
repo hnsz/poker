@@ -1,7 +1,6 @@
 package Poker;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Dealer {
     private Table _table;
@@ -16,21 +15,20 @@ public class Dealer {
     }
 
     public PlayHand initiateHand(ArrayList<Player> players) {
-        ArrayList<Player> playersInHand, ordered;
+        ArrayList<Player> ordered;
         PlayHand hand;
 
-        playersInHand = draftPlayersForNextHand(players);
-        for(Player p : playersInHand) {
+        for(Player p : players) {
             p.setStatus(PlayerStatus.IN_HAND);
         }
         rotateButtonToNextPlayerInHand();
-        ordered = reorder(playersInHand);
+        ordered = reorder(players);
 
         hand = new PlayHand(this, ordered);
 
         return hand;
     }
-    private ArrayList<Player> draftPlayersForNextHand(ArrayList<Player> playersInGame) {
+    public ArrayList<Player> draftPlayersForNextHand(ArrayList<Player> playersInGame) {
         ArrayList<Player> inHand = new ArrayList<>();
 
         for (Player p : playersInGame) {

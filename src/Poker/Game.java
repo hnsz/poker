@@ -12,13 +12,11 @@ public class Game {
 
     public void playHand() {
         PlayHand playHand;
+        ArrayList<Player> players;
 
 
-
-        playHand = _dealer.initiateHand(_players);
-
-
-
+        players = _dealer.draftPlayersForNextHand(_players);
+        playHand = _dealer.initiateHand(players);
         playHand.start();
         playHand.bettingRounds();
         playHand.showdown();

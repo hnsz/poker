@@ -11,7 +11,11 @@ public class Table {
     public Table(TableRules rules) {
         _rules = rules;
 
-        _seats = new ArrayList<>(Arrays.asList(new Seat[9]));
+        _seats = new ArrayList<>(Arrays.asList(
+                new Seat(), new Seat(), new Seat(),
+                new Seat(), new Seat(), new Seat(),
+                new Seat(), new Seat(), new Seat()
+                                ));
 
     }
     public ArrayList<Seat> getAvailableSeats() {
