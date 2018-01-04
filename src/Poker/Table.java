@@ -8,15 +8,18 @@ public class Table {
     private Dealer _dealer;
     private ArrayList<Seat> _seats;
 
-    public Table(TableRules rules, Dealer dealer) {
+    public Table(TableRules rules) {
         _rules = rules;
-        _dealer = dealer;
 
-        _seats = new ArrayList<Seat>(Arrays.asList(new Seat[9]));
+        _seats = new ArrayList<>(Arrays.asList(new Seat[9]));
 
     }
     public ArrayList<Seat> getAvailableSeats() {
 
-         return new ArrayList<Seat>(_seats);
+         return new ArrayList<>(_seats);
+    }
+
+    public ArrayList<Seat> getAllSeats() {
+        return _seats;
     }
 }

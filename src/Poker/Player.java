@@ -39,4 +39,10 @@ public class Player {
         return _status;
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "_nick='" + _nick + '\'' +
+                '}';
+    }
 }

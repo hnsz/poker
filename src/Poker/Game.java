@@ -4,28 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private List<Player> _players = new ArrayList<>();
+    private ArrayList<Player> _players = new ArrayList<>();
     private Dealer _dealer;
 
     public Game(Dealer dealer) {
         _dealer = dealer;
     }
 
-    public void playHand(ArrayList<Player> playersInGame) {
-        List<Player> playersInHand;
+    public void playHand() {
+        ArrayList<Player> playersInHand;
         PlayHand playHand;
 
-        playersInHand = _dealer.draftPlayersForNextHand(playersInGame);
+        playersInHand = _dealer.draftPlayersForNextHand(_players);
 
-        /*
-        Set correct player order
-        Dealer does it.
-        NextSeatWithPlayer
-        First players enter hand then dealerbutton is shifted and ordering is set
-        Dealer has player assigned to dealerbutton field
-        But player or seat? What is someone leaves? If someone else
-         */
         playHand = new PlayHand(_dealer, playersInHand);
+
+
 
         playHand.start();
         playHand.bettingRounds();

@@ -10,6 +10,7 @@ public enum PlayerStatus {
     WAITING_FOR_BB,
     POSTED,
     PLAYING,
+    IN_HAND,
 
     FOLD,
     MUCK,

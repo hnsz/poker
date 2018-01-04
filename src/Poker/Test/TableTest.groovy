@@ -9,7 +9,7 @@ class TableTest extends GroovyTestCase {
     void testGetAvailableSeats() {
 
 
-        Table table = new Table(new TableRules(), new Dealer())
+        Table table = new Table(new TableRules())
 
         ArrayList<Seat> available = table.getAvailableSeats()
         assertEquals(9, available.size())
