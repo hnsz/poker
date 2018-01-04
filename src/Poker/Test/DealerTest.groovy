@@ -1,4 +1,11 @@
-package Poker
+package Poker.Test
+
+import Poker.Dealer
+import Poker.Player
+import Poker.PlayerStatus
+import Poker.Seat
+import Poker.Table
+import Poker.TableRules
 
 class DealerTest extends GroovyTestCase {
     void testDraftPlayersForNextHand() {
