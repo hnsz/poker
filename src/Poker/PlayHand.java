@@ -3,9 +3,27 @@ package Poker;
 import java.util.ArrayList;
 import java.util.List;
 
-class PlayHand {
+public class PlayHand {
     private List<Player> playersInHand;
-    PlayHand(List<Player> playing) {
+    private Dealer _dealer;
+
+    public PlayHand(Dealer dealer, List<Player> playing) {
         playersInHand =  new ArrayList<>(playing);
+        _dealer = dealer;
+    }
+    public void start() {
+
+    }
+    public void bettingRounds() {
+
+    }
+    public void showdown() {
+
+    }
+    public void payout() {
+
+    }
+    public void end() {
+
     }
 }
