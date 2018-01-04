@@ -1,7 +1,6 @@
 package Poker;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
     private ArrayList<Player> _players = new ArrayList<>();
@@ -12,12 +11,11 @@ public class Game {
     }
 
     public void playHand() {
-        ArrayList<Player> playersInHand;
         PlayHand playHand;
 
-        playersInHand = _dealer.draftPlayersForNextHand(_players);
 
-        playHand = new PlayHand(_dealer, playersInHand);
+
+        playHand = _dealer.initiateHand(_players);
 
 
 

@@ -15,7 +15,22 @@ public class Dealer {
 
     }
 
-    public ArrayList<Player> draftPlayersForNextHand(ArrayList<Player> playersInGame) {
+    public PlayHand initiateHand(ArrayList<Player> players) {
+        ArrayList<Player> playersInHand, ordered;
+        PlayHand hand;
+
+        playersInHand = draftPlayersForNextHand(players);
+        for(Player p : playersInHand) {
+            p.setStatus(PlayerStatus.IN_HAND);
+        }
+        rotateButtonToNextPlayerInHand();
+        ordered = reorder(playersInHand);
+
+        hand = new PlayHand(this, ordered);
+
+        return hand;
+    }
+    private ArrayList<Player> draftPlayersForNextHand(ArrayList<Player> playersInGame) {
         ArrayList<Player> inHand = new ArrayList<>();
 
         for (Player p : playersInGame) {
@@ -26,7 +41,7 @@ public class Dealer {
         return inHand;
     }
 
-    public void rotateButtonToNextInHand() {
+    private void rotateButtonToNextPlayerInHand() {
         Seat next, current;
         Set<Seat> seen = new HashSet<>();
         do {
@@ -40,7 +55,7 @@ public class Dealer {
             }
         } while (!seen.contains(next));
     }
-    public ArrayList<Player> getPlayerOrder(ArrayList<Player> inHand) {
+    private ArrayList<Player> reorder(ArrayList<Player> inHand) {
         ArrayList<Player> ordered;
         Player onButton;
         int idx;
