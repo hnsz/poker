@@ -21,7 +21,7 @@ public class Game {
         Set correct player order
         Dealer does it.
         NextSeatWithPlayer
-        First players enter hand then ordering is set
+        First players enter hand then dealerbutton is shifted and ordering is set
         Dealer has player assigned to dealerbutton field
         But player or seat? What is someone leaves? If someone else
          */
