@@ -16,14 +16,22 @@ class DealerTest extends GroovyTestCase {
 
 
 
-    void testDraftPlayersForNextHand() {
-
-    }
     void testInitiateHand() {
         PlayHand hand
+        ArrayList<Player> playersInHand
 
+        playersInHand = _dealer.draftPlayersForNextHand(_playersInGame)
+        println(playersInHand)
         hand = _dealer.initiateHand(_playersInGame)
-
+        for (Player p : hand._players) {
+            assertEquals(PlayerStatus.IN_HAND, p.status())
+        }
+        for (Player p : _playersInGame) {
+            if (p.status() == PlayerStatus.IN_HAND) {
+                assertTrue(hand._players.contains(p))
+            }
+        }
+        assertEquals(_dealer.reorder(hand._players), hand._players)
 
     }
     void testReorder() {
@@ -32,11 +40,15 @@ class DealerTest extends GroovyTestCase {
 
         inHand = new ArrayList<>(_playersInGame.subList(2,5))
         inHand.add(0,_playersInGame[0])
+        for (Player p : inHand) {
+            p.setStatus(PlayerStatus.IN_HAND)
+        }
+
         expected = new ArrayList<>(inHand.subList(1,4))
         expected.add(inHand[0])
         assertEquals(inHand, _dealer.reorder(inHand))
 
-        _dealer.rotateButtonToNextPlayerInHand()
+        _dealer.rotateButton(inHand)
 
         assertEquals(expected, _dealer.reorder(inHand))
     }
@@ -44,21 +56,14 @@ class DealerTest extends GroovyTestCase {
     void testRotateButton() {
 
         assertSame(_playersInGame[0], _dealer._rotation.peek().getPlayer())
-        _dealer.rotateButtonToNextPlayerInHand()
+        _dealer.rotateButton(_playersInGame)
         assertSame(_playersInGame[2], _dealer._rotation.peek().getPlayer())
         assertSame(_playersInGame[1], _dealer._rotation.peekLast().getPlayer())
-        _dealer.rotateButtonToNextPlayerInHand()
-        _dealer.rotateButtonToNextPlayerInHand()
+        _dealer.rotateButton(_playersInGame)
+        _dealer.rotateButton(_playersInGame)
         assertSame(_playersInGame[4], _dealer._rotation.peek().getPlayer())
         assertSame(_table._seats[6], _dealer._rotation.peekLast())
     }
-
-    private static void playersSetStatus(ArrayList<Player> players) {
-    }
-
-    private static ArrayList<Player> getPlayers() {
-    }
-
 
     void testGiveBetOption() {
     }
@@ -79,11 +84,11 @@ class DealerTest extends GroovyTestCase {
                  new Player("four", 4),
                 ])
 
-        _playersInGame[0].setStatus(PlayerStatus.IN_HAND)
+        _playersInGame[0].setStatus(PlayerStatus.PLAYING)
         _playersInGame[1].setStatus(PlayerStatus.SITTING_OUT)
-        _playersInGame[2].setStatus(PlayerStatus.IN_HAND)
-        _playersInGame[3].setStatus(PlayerStatus.IN_HAND)
-        _playersInGame[4].setStatus(PlayerStatus.IN_HAND)
+        _playersInGame[2].setStatus(PlayerStatus.PLAYING)
+        _playersInGame[3].setStatus(PlayerStatus.PLAYING)
+        _playersInGame[4].setStatus(PlayerStatus.PLAYING)
 
         tableSeats = _table.getAllSeats()
 

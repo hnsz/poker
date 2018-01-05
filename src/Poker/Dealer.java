@@ -21,7 +21,7 @@ public class Dealer {
         for(Player p : players) {
             p.setStatus(PlayerStatus.IN_HAND);
         }
-        rotateButtonToNextPlayerInHand();
+        rotateButton(players);
         ordered = reorder(players);
 
         hand = new PlayHand(this, ordered);
@@ -39,19 +39,24 @@ public class Dealer {
         return inHand;
     }
 
-    private void rotateButtonToNextPlayerInHand() {
-        Seat next, current;
-        Set<Seat> seen = new HashSet<>();
-        do {
-            current = _rotation.pop();
-            _rotation.add(current);
-            seen.add(current);
+    private boolean rotateButton(ArrayList<Player> playersInRotation) {
+        Seat buttonSeat, prevButtonSeat;
 
-            next = _rotation.peek();
-            if(next.occupied() && _rotation.peek().getPlayer().status() == PlayerStatus.IN_HAND) {
-                break;
+        prevButtonSeat = _rotation.peek();
+        buttonSeat = shiftRotation();
+
+        while (buttonSeat != prevButtonSeat) {
+            if (playersInRotation.contains(buttonSeat.getPlayer())) {
+                return true;
             }
-        } while (!seen.contains(next));
+
+            buttonSeat = shiftRotation();
+        }
+        return false;
+    }
+    private Seat shiftRotation() {
+        _rotation.add(_rotation.pop());
+        return _rotation.peek();
     }
     private ArrayList<Player> reorder(ArrayList<Player> inHand) {
         ArrayList<Player> ordered;
