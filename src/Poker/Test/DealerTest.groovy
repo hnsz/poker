@@ -21,8 +21,8 @@ class DealerTest extends GroovyTestCase {
         ArrayList<Player> playersInHand
 
         playersInHand = _dealer.draftPlayersForNextHand(_playersInGame)
-        println(playersInHand)
-        hand = _dealer.initiateHand(_playersInGame)
+        hand = _dealer.initiateHand(playersInHand)
+
         for (Player p : hand._players) {
             assertEquals(PlayerStatus.IN_HAND, p.status())
         }
@@ -31,8 +31,12 @@ class DealerTest extends GroovyTestCase {
                 assertTrue(hand._players.contains(p))
             }
         }
+        for (Seat seat : _table._seats) {
+            if(seat.occupied() && seat.getPlayer().status() != PlayerStatus.IN_HAND) {
+                assertFalse(hand._players.contains(seat.getPlayer()))
+            }
+        }
         assertEquals(_dealer.reorder(hand._players), hand._players)
-
     }
     void testReorder() {
         ArrayList<Player> inHand, expected
@@ -54,13 +58,13 @@ class DealerTest extends GroovyTestCase {
     }
 
     void testRotateButton() {
-
+        ArrayList<Player> playersInHand = _dealer.draftPlayersForNextHand(_playersInGame)
         assertSame(_playersInGame[0], _dealer._rotation.peek().getPlayer())
-        _dealer.rotateButton(_playersInGame)
+        _dealer.rotateButton(playersInHand)
         assertSame(_playersInGame[2], _dealer._rotation.peek().getPlayer())
         assertSame(_playersInGame[1], _dealer._rotation.peekLast().getPlayer())
-        _dealer.rotateButton(_playersInGame)
-        _dealer.rotateButton(_playersInGame)
+        _dealer.rotateButton(playersInHand)
+        _dealer.rotateButton(playersInHand)
         assertSame(_playersInGame[4], _dealer._rotation.peek().getPlayer())
         assertSame(_table._seats[6], _dealer._rotation.peekLast())
     }

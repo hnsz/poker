@@ -15,7 +15,6 @@ class GameTest extends GroovyTestCase {
         game.admitPlayer(new Player("player 2", 102).setStatus(PlayerStatus.PLAYING))
         game.admitPlayer(new Player("player 3", 103).setStatus(PlayerStatus.PLAYING))
 
-        game
 
     }
 
