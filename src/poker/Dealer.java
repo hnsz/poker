@@ -1,5 +1,9 @@
 package poker;
 
+import poker.game.PlayHand;
+import poker.table.Seat;
+import poker.table.Table;
+
 import java.util.*;
 
 public class Dealer {

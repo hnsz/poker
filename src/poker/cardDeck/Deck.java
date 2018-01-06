@@ -1,4 +1,4 @@
-package poker;
+package poker.cardDeck;
 
 import java.util.Collections;
 import java.util.Stack;

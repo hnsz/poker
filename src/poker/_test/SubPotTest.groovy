@@ -1,7 +1,7 @@
 package poker._test
 
 import poker.Player
-import poker.SubPot
+import poker.betting.SubPot
 
 class SubPotTest extends GroovyTestCase {
     private SubPot _pot

@@ -1,4 +1,6 @@
-package poker;
+package poker.table;
+
+import poker.Dealer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

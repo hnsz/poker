@@ -1,8 +1,8 @@
 package poker._test
 
-import poker.Card
-import poker.Rank
-import poker.Suit
+import poker.cardDeck.Card
+import poker.cardDeck.Rank
+import poker.cardDeck.Suit
 
 class CardTest extends GroovyTestCase {
 

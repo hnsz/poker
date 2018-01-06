@@ -1,4 +1,4 @@
-package poker;
+package poker.cardDeck;
 
 /**
  * Represents one of the 52 poker cards,

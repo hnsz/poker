@@ -1,4 +1,4 @@
-package poker;
+package poker.cardDeck;
 
 public enum Rank {
     TWO,

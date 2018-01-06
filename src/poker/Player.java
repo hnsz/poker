@@ -1,5 +1,8 @@
 package poker;
 
+import poker.table.Seat;
+import poker.table.Table;
+
 import java.util.List;
 
 public class Player {

@@ -1,4 +1,7 @@
-package poker;
+package poker.game;
+
+import poker.Dealer;
+import poker.Player;
 
 import java.util.ArrayList;
 

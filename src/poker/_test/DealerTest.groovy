@@ -1,12 +1,12 @@
 package poker._test
 
 import poker.Dealer
-import poker.PlayHand
+import poker.game.PlayHand
 import poker.Player
 import poker.PlayerStatus
-import poker.Seat
-import poker.Table
-import poker.TableRules
+import poker.table.Seat
+import poker.table.Table
+import poker.table.TableRules
 
 
 class DealerTest extends GroovyTestCase {

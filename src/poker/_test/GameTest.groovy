@@ -1,7 +1,7 @@
 package poker._test
 
 import poker.Dealer
-import poker.Game
+import poker.game.Game
 import poker.Player
 import poker.PlayerStatus
 

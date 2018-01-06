@@ -1,4 +1,4 @@
-package poker;
+package poker.betting;
 
 import java.util.ArrayList;
 

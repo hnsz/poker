@@ -1,4 +1,6 @@
-package poker;
+package poker.table;
+
+import poker.Player;
 
 public class Seat {
     private Player _player;
