@@ -1,4 +1,4 @@
-package Poker;
+package poker;
 
 /**
  * Represents one of the 52 poker cards,

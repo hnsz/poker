@@ -1,9 +1,8 @@
-package Poker.Test
+package poker._test
 
-import Poker.Dealer
-import Poker.Seat
-import Poker.Table
-import Poker.TableRules
+import poker.Seat
+import poker.Table
+import poker.TableRules
 
 class TableTest extends GroovyTestCase {
     void testGetAvailableSeats() {

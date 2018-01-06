@@ -1,13 +1,13 @@
-package Poker;
+package poker;
 
 import java.util.ArrayList;
 
-public class Pot {
+public class SubPot {
     private Integer _total = 0;
     private ArrayList<Player> _shareHolders;
 
-    public Pot() {
-        _shareHolders = new ArrayList<Player>();
+    public SubPot() {
+        _shareHolders = new ArrayList<>();
     }
 
     public void insert(Integer amount, Player player) {

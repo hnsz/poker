@@ -1,4 +1,4 @@
-package Poker;
+package poker;
 
 public enum PlayerStatus {
     WAITING_FOR_GAME,

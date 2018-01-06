@@ -1,9 +1,9 @@
-package Poker.Test
+package poker._test
 
-import Poker.Dealer
-import Poker.Game
-import Poker.Player
-import Poker.PlayerStatus
+import poker.Dealer
+import poker.Game
+import poker.Player
+import poker.PlayerStatus
 
 class GameTest extends GroovyTestCase {
     void testPlayHand() {

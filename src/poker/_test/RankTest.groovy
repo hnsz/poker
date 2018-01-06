@@ -1,6 +1,6 @@
-package Poker.Test
+package poker._test
 
-import Poker.Rank
+import poker.Rank
 
 
 class RankTest extends GroovyTestCase {

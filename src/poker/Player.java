@@ -1,6 +1,4 @@
-package Poker;
-
-import com.thoughtworks.xstream.mapper.Mapper;
+package poker;
 
 import java.util.List;
 

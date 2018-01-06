@@ -1,7 +1,7 @@
-package Poker.Test
+package poker._test
 
-import Poker.Player
-import Poker.Seat
+import poker.Player
+import poker.Seat
 
 class SeatTest extends GroovyTestCase {
     void testTakeOccupiedRemove() {

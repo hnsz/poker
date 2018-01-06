@@ -1,7 +1,7 @@
-package Poker.Test
+package poker._test
 
-import Poker.Card
-import Poker.Deck
+import poker.Card
+import poker.Deck
 
 
 class DeckTest extends GroovyTestCase {

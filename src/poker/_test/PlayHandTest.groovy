@@ -1,6 +1,6 @@
-package Poker.Test
+package poker._test
 
-import Poker.Player
+import poker.Player
 
 class PlayHandTest extends GroovyTestCase {
     void setUp() {
