@@ -31,7 +31,7 @@ public class Player {
 
         }
     }
-    public void addChips(Integer amount) {
+    public void recieveChips(Integer amount) {
         _stack += amount;
     }
 

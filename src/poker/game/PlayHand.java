@@ -9,7 +9,7 @@ public class PlayHand {
     private ArrayList<Player> _players;
     private Dealer _dealer;
 
-    PlayHand(Dealer dealer, ArrayList<Player> players) {
+    public PlayHand(Dealer dealer, ArrayList<Player> players) {
         _dealer = dealer;
         _players = players;
     }
