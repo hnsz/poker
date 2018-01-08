@@ -1,5 +1,6 @@
 package poker._test
 
+import poker.InternalPlayerClient
 import poker.Player
 import poker.betting.Bet
 import poker.betting.BettingDecision
@@ -10,18 +11,18 @@ import poker.betting.Fold
 import poker.betting.Raise
 
 class BettingDecisionTest extends GroovyTestCase {
-    BettingDecision _bettingDecision
+    BettingDecision _decision
     Player _player
 
     void setUp() {
         super.setUp()
 
-        Player _player =  new Player("playername", 3001)
-        _bettingDecision = new BettingDecision(_player)
+        Player _player =  new Player("playername", 3001, new InternalPlayerClient())
+        _decision = new BettingDecision(_player)
     }
 
     void tearDown() {
-        _bettingDecision = null
+        _decision = null
     }
 
     void testOption() {
@@ -31,13 +32,13 @@ class BettingDecisionTest extends GroovyTestCase {
         Bet bet = new Bet(200)
         Raise raise = new Raise(200)
 
-        _bettingDecision.addOption(fold)
-        _bettingDecision.addOption(call)
-        _bettingDecision.addOption(check)
-        _bettingDecision.addOption(bet)
-        _bettingDecision.addOption(raise)
+        _decision.addOption(fold)
+        _decision.addOption(call)
+        _decision.addOption(check)
+        _decision.addOption(bet)
+        _decision.addOption(raise)
 
-        assertEquals(5,_bettingDecision.getOptions().size())
+        assertEquals(5,_decision.getOptions().size())
     }
 
 
@@ -46,12 +47,13 @@ class BettingDecisionTest extends GroovyTestCase {
         Call call = new Call(100)
         Raise raise = new Raise(200)
 
-        _bettingDecision.addOption(fold)
-        _bettingDecision.addOption(call)
-        _bettingDecision.addOption(raise)
+        _decision.addOption(fold)
+        _decision.addOption(call)
+        _decision.addOption(raise)
 
-        ArrayList<BettingOption> options = _bettingDecision.getOptions()
-        _bettingDecision.choice(new Fold(0))
+        ArrayList<BettingOption> options = _decision.getOptions()
+        _decision.choice(options.get(0))
 
+        assertTrue(_decision._options.contains(_decision._choice))
     }
 }

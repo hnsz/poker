@@ -1,34 +1,29 @@
 package poker._test
 
-import poker.Dealer
 import poker.InternalPlayerClient
 import poker.Player
-import poker.game.PlayHand
-import poker.table.Table
-import poker.table.TableRules
+import poker.betting.Pot
+import poker.betting.SubPot
 
-class PlayHandTest extends GroovyTestCase {
+class PotTest extends GroovyTestCase {
     private ArrayList<Player> _players
 
-    void testConstructor() {
-        PlayHand hand =  new PlayHand(new Dealer(new Table(new TableRules())), _players);
-        assertEquals(hand._players,_players)
-        ArrayList<Player> list = new ArrayList<>(hand._players)
-
-    }
-    void testStart() {
+    void tearDown() {
     }
 
-    void testBettingRounds() {
+    void testRemoveFromAll() {
     }
 
-    void testShowdown() {
+    void testInsert() {
     }
 
-    void testPayout() {
-    }
+    void testInitPotlist() {
+        Pot pot = new Pot(_players)
+        for (SubPot sub : pot._potlist) {
+            print(sub.getShareholders())
+            println(sub.upperBound())
+        }
 
-    void testEnd() {
     }
     void setUp() {
         super.setUp()
@@ -38,5 +33,9 @@ class PlayHandTest extends GroovyTestCase {
                 new Player("player 3", 203, new InternalPlayerClient()),
                 new Player("player 4", 204, new InternalPlayerClient())
         ])
+        _players[0].recieveChips(100)
+        _players[1].recieveChips(2000)
+        _players[2].recieveChips(30)
+        _players[3].recieveChips(400)
     }
 }

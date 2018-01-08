@@ -4,14 +4,16 @@ import poker.Dealer;
 import poker.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PlayHand {
-    private ArrayList<Player> _players;
+    private List<Player> _players;
     private Dealer _dealer;
 
     public PlayHand(Dealer dealer, ArrayList<Player> players) {
         _dealer = dealer;
-        _players = players;
+        _players = Collections.unmodifiableList(players);
     }
 
     public void start() {

@@ -18,6 +18,22 @@ public class SubPot {
         }
     }
 
+    public Integer upperBound() {
+        Integer upperBound = Integer.MAX_VALUE;
+        for (Player player : getShareholders()) {
+            upperBound = Math.min(upperBound, share(player) + player.getStack());
+        }
+        return upperBound;
+    }
+
+    public Integer share(Player player) {
+        return _shares.get(player);
+    }
+
+    public Integer amountToCall(Player player) {
+        return _maxShare - _shares.get(player);
+    }
+
     public void remove(Player shareholder) {
         _shares.remove(shareholder);
     }
