@@ -7,62 +7,51 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class SubPot {
-    private HashMap<Player,Integer> _shares;
-    private Integer _maxShare = 0;
+    private HashMap<Player,Integer> _shareholders;
     private Integer _total = 0;
+    private Integer _upperBound;
 
-    public SubPot(ArrayList<Player> players) {
-        _shares = new HashMap<>();
+    public SubPot(ArrayList<Player> players, Integer upperBound) {
+        _shareholders = new HashMap<>();
         for (Player p : players) {
-            _shares.put(p, 0);
+            _shareholders.put(p, 0);
         }
+        _upperBound = upperBound;
     }
 
     public Integer upperBound() {
-        Integer upperBound = Integer.MAX_VALUE;
-        for (Player player : getShareholders()) {
-            upperBound = Math.min(upperBound, share(player) + player.getStack());
-        }
-        return upperBound;
+        return _upperBound;
     }
 
-    public Integer share(Player player) {
-        return _shares.get(player);
+    public Integer getShare(Player player) {
+        assert _shareholders.containsKey(player);
+
+        return _shareholders.get(player);
     }
 
-    public Integer amountToCall(Player player) {
-        return _maxShare - _shares.get(player);
-    }
+    public void removeShareholder(Player shareholder) {
+        assert _shareholders.containsKey(shareholder);
 
-    public void remove(Player shareholder) {
-        _shares.remove(shareholder);
+        _shareholders.remove(shareholder);
     }
     public void insert(Integer amount, Player player) {
-        _shares.replace(player, _shares.get(player) + amount);
+        assert (amount + _shareholders.get(player)) <= upperBound();
+
+        _shareholders.replace(player, _shareholders.get(player) + amount);
         _total += amount;
-        updateMax(_shares.get(player));
     }
     public void payout() {
-        Set<Player> shareholder = getShareholders();
-        for (Player p : shareholder) {
-            p.recieveChips(_total/shareholder.size());
+        // assert that all winners have payed equal share of the pot
+        assert _shareholders.values().stream().distinct().count() == 1;
+
+        Set<Player> shareholders = getShareholders();
+        for (Player p : shareholders) {
+            p.recieveChips(_total/shareholders.size());
         }
         _total = 0;
     }
 
-    public void matchAmount(Player player, Integer amount) {
-        Integer toMatch = _maxShare - _shares.get(player);
-//
-//        delegate or handle outside
-// if (toMatch > 0) {
-//            insert(Math.min(toMatch, amount), player);
-//        }
-//        if ()
-    }
     public Set<Player> getShareholders() {
-        return _shares.keySet();
-    }
-    private void updateMax(Integer amount) {
-        _maxShare = Math.max(_maxShare, amount);
+        return _shareholders.keySet();
     }
 }

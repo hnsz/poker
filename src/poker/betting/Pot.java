@@ -20,7 +20,7 @@ public class Pot {
     public void removeFromAll(Player shareholder) {
         for (SubPot subPot : _potlist) {
             if (subPot.getShareholders().contains(shareholder)) {
-                subPot.remove(shareholder);
+                subPot.removeShareholder(shareholder);
             }
         }
         _activeInPot.remove(shareholder);
@@ -37,7 +37,7 @@ public class Pot {
             pot = subPots.next();
 
             if (pot.getShareholders().contains(player)) {
-                difference = pot.upperBound() - pot.share(player);
+                difference = pot.upperBound() - pot.getShare(player);
 
                 if (difference < restAmount) {
                     pot.insert(difference, player);
@@ -60,7 +60,7 @@ public class Pot {
         byStackSizeAsc.sort(Comparator.comparing(Player::getStack));
 
         for (Player p : byStackSizeAsc) {
-            pot = new SubPot(new ArrayList<>(players));
+            pot = new SubPot(new ArrayList<>(players), p.getStack());
             players.remove(p);
             _potlist.push(pot);
         }
