@@ -16,11 +16,35 @@ public class Pot {
         initPotlist();
     }
 
+    public void setWinners(ArrayList<ArrayList<Player>> winnerOrder) {
+        for (ArrayList<Player> players: winnerOrder) {
+            for (SubPot pot : _potlist) {
+                pot.setWinners(players);
+            }
+        }
+    }
+    public void payout() {
+        Iterator<SubPot> potIterator = _potlist.descendingIterator();
+        SubPot pot;
+        while (potIterator.hasNext()) {
+            pot = potIterator.next();
+            pot.payout();
+        }
+    }
 
-    public void removeFromAll(Player shareholder) {
+    public void transfer(Integer amount, Player player) {
+        assert player.getStack() >= amount: "Transfer amount is higher than stack" ;
+
+        player.subtractChips(amount);
+        insert(amount, player);
+    }
+    public void removeShareholder(Player shareholder) {
         for (SubPot subPot : _potlist) {
             if (subPot.getShareholders().contains(shareholder)) {
                 subPot.removeShareholder(shareholder);
+                if (subPot.getShareholders().size() == 0) {
+                    _potlist.remove(subPot);
+                }
             }
         }
         _activeInPot.remove(shareholder);

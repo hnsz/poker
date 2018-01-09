@@ -4,6 +4,7 @@ import poker.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class SubPot {
@@ -29,6 +30,14 @@ public class SubPot {
         return _shareholders.get(player);
     }
 
+    public void setWinners(ArrayList<Player> players) {
+
+        for (Player p : getShareholders()) {
+            if (!players.contains(p)) {
+                removeShareholder(p);
+            }
+        }
+    }
     public void removeShareholder(Player shareholder) {
         assert _shareholders.containsKey(shareholder);
 
@@ -42,16 +51,16 @@ public class SubPot {
     }
     public void payout() {
         // assert that all winners have payed equal share of the pot
-        assert _shareholders.values().stream().distinct().count() == 1;
+        assert _shareholders.values().stream().distinct().count() <= 1: "not all shareholders have payed equal share";
 
-        Set<Player> shareholders = getShareholders();
+        List<Player> shareholders = getShareholders();
         for (Player p : shareholders) {
             p.recieveChips(_total/shareholders.size());
         }
         _total = 0;
     }
 
-    public Set<Player> getShareholders() {
-        return _shareholders.keySet();
+    public ArrayList<Player> getShareholders() {
+        return new ArrayList<>(_shareholders.keySet());
     }
 }

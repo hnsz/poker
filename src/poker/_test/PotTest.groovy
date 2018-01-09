@@ -12,7 +12,59 @@ class PotTest extends GroovyTestCase {
     void tearDown() {
     }
 
-    void testRemoveFromAll() {
+    void testSimulatebettingAndPayout() {
+        //startstack    100, 2000, 30, 400
+        //bet           30, 200, 30, 300
+        //potwin        0, 0, 120, 470
+        //endstack      70, 1800, 120, 570
+        ArrayList<Player> p = _players
+        ArrayList<ArrayList<Player>> winnerOrder
+
+        winnerOrder = new ArrayList<>()
+        winnerOrder.add(new ArrayList<Player>([p[2]]))
+        winnerOrder.add(new ArrayList<Player>([p[3]]))
+
+        // p0 bet
+        _pot.transfer(10, p[0])
+        assertEquals(90, p[0]._stack)
+        // p1 call
+        _pot.transfer(10, p[1])
+        // p2 all-in raise
+        _pot.transfer(30, p[2])
+        // p3 call
+        _pot.transfer(30, p[3])
+        // p0 call
+        _pot.transfer(20, p[0])
+        // p1 re-raise
+        _pot.transfer(190, p[1])
+        // p3 re-raise
+        _pot.transfer(270, p[3])
+        // p0 fold
+        _pot.removeShareholder(p[0])
+        // p1 fold
+        _pot.removeShareholder(p[1])
+
+        for (SubPot pot : _pot._potlist) {
+            print(pot._shareholders)
+            println(    pot._total)
+        }
+        assertEquals(70, p[0]._stack)
+        assertEquals(1800, p[1]._stack)
+        assertEquals(0, p[2]._stack)
+        assertEquals(100, p[3]._stack)
+
+        _pot.setWinners(winnerOrder)
+        _pot.payout()
+        // p0 wins nothing
+        assertEquals(70, p[0]._stack)
+        // p1 nothing
+        assertEquals(1800, p[1]._stack)
+        // p2 gets main pot 120
+        assertEquals(120, p[2]._stack)
+        // p3 get side pot 470
+        assertEquals(570, p[3]._stack)
+
+
     }
 
     void testInsert() {
