@@ -15,8 +15,8 @@ class PotTest extends GroovyTestCase {
     void testSimulatebettingAndPayout() {
         //startstack    100, 2000, 30, 400
         //bet           30, 200, 30, 300
-        //potwin        0, 0, 120, 470
-        //endstack      70, 1800, 120, 570
+        //potwin        0, 0, 120, 440
+        //endstack      70, 1800, 120, 540
         ArrayList<Player> p = _players
         ArrayList<ArrayList<Player>> winnerOrder
 
@@ -26,7 +26,6 @@ class PotTest extends GroovyTestCase {
 
         // p0 bet
         _pot.transfer(10, p[0])
-        assertEquals(90, p[0]._stack)
         // p1 call
         _pot.transfer(10, p[1])
         // p2 all-in raise
@@ -62,7 +61,7 @@ class PotTest extends GroovyTestCase {
         // p2 gets main pot 120
         assertEquals(120, p[2]._stack)
         // p3 get side pot 470
-        assertEquals(570, p[3]._stack)
+        assertEquals(540, p[3]._stack)
 
 
     }

@@ -19,24 +19,30 @@ class BettingDecisionTest extends GroovyTestCase {
 
         Player _player =  new Player("playername", 3001, new InternalPlayerClient())
         _decision = new BettingDecision(_player)
+
+
+        _decision.addOption(new Fold(0))
+        _decision.addOption(new Call(100))
+        _decision.addOption(new Check(0))
+        _decision.addOption(new Bet(200))
+        _decision.addOption(new Raise(200))
     }
 
     void tearDown() {
         _decision = null
     }
 
-    void testOption() {
-        Fold fold = new Fold(0)
-        Call call = new Call(100)
-        Check check = new Check(0)
-        Bet bet = new Bet(200)
-        Raise raise = new Raise(200)
+    void testBetting() {
+        ArrayList<BettingOption> options = _decision.getOptions()
+        for (BettingOption opt : options) {
+            if (opt.class == Call.class) {
+                println(opt.amount)
+            }
 
-        _decision.addOption(fold)
-        _decision.addOption(call)
-        _decision.addOption(check)
-        _decision.addOption(bet)
-        _decision.addOption(raise)
+        }
+    }
+
+    void testOption() {
 
         assertEquals(5,_decision.getOptions().size())
     }

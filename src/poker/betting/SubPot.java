@@ -30,11 +30,20 @@ public class SubPot {
         return _shareholders.get(player);
     }
 
-    public void setWinners(ArrayList<Player> players) {
-
+    public void setWinnersByRemovingLosers(ArrayList<Player> players) {
+        ArrayList<Player> winnersOfThisPot =  new ArrayList<>();
         for (Player p : getShareholders()) {
-            if (!players.contains(p)) {
-                removeShareholder(p);
+            if (players.contains(p)) {
+                winnersOfThisPot.add(p);
+            }
+        }
+        if (winnersOfThisPot.isEmpty()) {
+            return;
+        } else {
+            for (Player p : getShareholders()) {
+                if (!winnersOfThisPot.contains(p)) {
+                    _shareholders.remove(p);
+                }
             }
         }
     }

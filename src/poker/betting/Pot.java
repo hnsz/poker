@@ -17,9 +17,9 @@ public class Pot {
     }
 
     public void setWinners(ArrayList<ArrayList<Player>> winnerOrder) {
-        for (ArrayList<Player> players: winnerOrder) {
-            for (SubPot pot : _potlist) {
-                pot.setWinners(players);
+        for (ArrayList<Player> winnerRank : winnerOrder) {
+            for (SubPot subPot : _potlist) {
+                subPot.setWinnersByRemovingLosers(winnerRank);
             }
         }
     }
