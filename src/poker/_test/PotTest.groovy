@@ -43,7 +43,7 @@ class PotTest extends GroovyTestCase {
         // p1 fold
         _pot.removeShareholder(p[1])
 
-        for (SubPot pot : _pot._potlist) {
+        for (SubPot pot : _pot._potList) {
             print(pot._shareholders)
             println(    pot._total)
         }
@@ -72,17 +72,17 @@ class PotTest extends GroovyTestCase {
         _pot.insert(200, _players[1])
         _players[1].subtractChips(200)
         SubPot sub
-        sub = _pot._potlist.pop()
+        sub = _pot._potList.pop()
         assertEquals(0, sub._total)
-        sub = _pot._potlist.pop()
+        sub = _pot._potList.pop()
         assertEquals(70, sub._total)
         assertEquals(70,sub._shareholders.get(_players[1]))
 
-        sub = _pot._potlist.pop()
+        sub = _pot._potList.pop()
         assertEquals(120, sub._total)
         assertEquals(20,sub._shareholders.get(_players[0]))
         assertEquals(100,sub._shareholders.get(_players[1]))
-        sub = _pot._potlist.pop()
+        sub = _pot._potList.pop()
         assertEquals(60, sub._total)
         assertEquals(30,sub._shareholders.get(_players[0]))
         assertEquals(30,sub._shareholders.get(_players[1]))
@@ -91,7 +91,7 @@ class PotTest extends GroovyTestCase {
 
     void testInitPotlist() {
         Pot pot = new Pot(_players)
-        for (SubPot sub : pot._potlist) {
+        for (SubPot sub : pot._potList) {
             for (Player p : sub.getShareholders()) {
                 assertTrue(p.getStack() >= sub.upperBound())
             }

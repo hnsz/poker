@@ -1,7 +1,10 @@
 package poker.betting;
 
+import poker.dealer.DealerAction;
+
 public class Bet extends BettingOption {
-    public Bet(Integer amount) {
-        super(amount);
+
+    Bet(Integer amount, DealerAction dealerAction) {
+        super(amount, dealerAction);
     }
 }

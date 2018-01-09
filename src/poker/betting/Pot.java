@@ -8,23 +8,33 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 public class Pot {
-    private ArrayDeque<SubPot> _potlist;
+    private ArrayDeque<SubPot> _potList;
     private ArrayList<Player> _activeInPot;
 
     public Pot(ArrayList<Player> players) {
         _activeInPot = new ArrayList<>(players);
-        initPotlist();
+        initPotList();
     }
 
+    public Integer getShare(Player player) {
+        Integer sum = 0;
+
+        for (SubPot pot : _potList) {
+            if (pot.getShareholders().contains(player)) {
+                sum = sum + pot.getShare(player);
+            }
+        }
+        return sum;
+    }
     public void setWinners(ArrayList<ArrayList<Player>> winnerOrder) {
         for (ArrayList<Player> winnerRank : winnerOrder) {
-            for (SubPot subPot : _potlist) {
+            for (SubPot subPot : _potList) {
                 subPot.setWinnersByRemovingLosers(winnerRank);
             }
         }
     }
     public void payout() {
-        Iterator<SubPot> potIterator = _potlist.descendingIterator();
+        Iterator<SubPot> potIterator = _potList.descendingIterator();
         SubPot pot;
         while (potIterator.hasNext()) {
             pot = potIterator.next();
@@ -39,18 +49,19 @@ public class Pot {
         insert(amount, player);
     }
     public void removeShareholder(Player shareholder) {
-        for (SubPot subPot : _potlist) {
+        for (SubPot subPot : _potList) {
             if (subPot.getShareholders().contains(shareholder)) {
                 subPot.removeShareholder(shareholder);
                 if (subPot.getShareholders().size() == 0) {
-                    _potlist.remove(subPot);
+                    _potList.remove(subPot);
                 }
             }
         }
         _activeInPot.remove(shareholder);
     }
+
     public void insert(Integer amount, Player player) {
-        Iterator<SubPot> subPots = _potlist.descendingIterator();
+        Iterator<SubPot> subPots = _potList.descendingIterator();
         SubPot pot;
         Integer difference;
         Integer restAmount;
@@ -74,11 +85,11 @@ public class Pot {
             }
         }
     }
-    private void initPotlist() {
+    private void initPotList() {
         SubPot pot;
         ArrayList<Player> players, byStackSizeAsc;
 
-        _potlist = new ArrayDeque<>();
+        _potList = new ArrayDeque<>();
         players = new ArrayList<>(_activeInPot);
         byStackSizeAsc = new ArrayList<>(_activeInPot);
         byStackSizeAsc.sort(Comparator.comparing(Player::getStack));
@@ -86,7 +97,7 @@ public class Pot {
         for (Player p : byStackSizeAsc) {
             pot = new SubPot(new ArrayList<>(players), p.getStack());
             players.remove(p);
-            _potlist.push(pot);
+            _potList.push(pot);
         }
     }
 }

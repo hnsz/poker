@@ -1,6 +1,6 @@
 package poker.game;
 
-import poker.Dealer;
+import poker.dealer.Dealer;
 import poker.Player;
 
 import java.util.ArrayList;

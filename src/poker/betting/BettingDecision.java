@@ -21,7 +21,11 @@ public class BettingDecision {
         return _options;
     }
 
-    public void choice(BettingOption option) {
-        _choice = option;
+    public void choice(BettingOption select) {
+        for (BettingOption option : _options) {
+            if (option.getClass() == select.getClass()) {
+
+            }
+        }
     }
 }

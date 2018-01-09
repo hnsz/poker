@@ -1,5 +1,7 @@
-package poker;
+package poker.dealer;
 
+import poker.Player;
+import poker.PlayerStatus;
 import poker.game.PlayHand;
 import poker.table.Seat;
 import poker.table.Table;

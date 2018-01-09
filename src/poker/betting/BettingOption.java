@@ -1,9 +1,14 @@
 package poker.betting;
 
+import poker.dealer.DealerAction;
+
 public abstract class BettingOption {
     private Integer _amount;
-    public BettingOption(Integer amount) {
+    private DealerAction _dealerAction;
+
+    BettingOption(Integer amount, DealerAction dealerAction) {
         _amount = amount;
+        _dealerAction = dealerAction;
     }
     public void setAmount(Integer amount) {
         _amount = amount;
@@ -12,4 +17,7 @@ public abstract class BettingOption {
         return _amount;
     }
 
+    public DealerAction getDealerAction() {
+        return _dealerAction;
+    }
 }

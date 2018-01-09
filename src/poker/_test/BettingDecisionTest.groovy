@@ -9,6 +9,7 @@ import poker.betting.Call
 import poker.betting.Check
 import poker.betting.Fold
 import poker.betting.Raise
+import poker.dealer.DealerAction
 
 class BettingDecisionTest extends GroovyTestCase {
     BettingDecision _decision
@@ -33,13 +34,19 @@ class BettingDecisionTest extends GroovyTestCase {
     }
 
     void testBetting() {
+        // A betting decision is set up by dealer
+        // Dealer prompts player and presents betting decision
+        /// setup
+        // Player makes a choice by getting response from client
         ArrayList<BettingOption> options = _decision.getOptions()
-        for (BettingOption opt : options) {
-            if (opt.class == Call.class) {
-                println(opt.amount)
-            }
+        _decision.choice(new Call(100))
+        // Dealer detemines next action
 
-        }
+        //  Fold: Remove player from pot
+        //  Check: Nothing
+        //  Call, Bet, Raise: A transfer from chips to the pot
+
+
     }
 
     void testOption() {

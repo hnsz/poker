@@ -1,6 +1,6 @@
 package poker._test
 
-import poker.Dealer
+import poker.dealer.Dealer
 import poker.InternalPlayerClient
 import poker.Player
 import poker.game.PlayHand
