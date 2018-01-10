@@ -1,9 +1,9 @@
 package poker.betting;
 
-import poker.dealer.DealerAction;
+import poker.dealer.DealerBettingResponse;
 
-public class Call extends BettingOption {
-    Call(Integer amount, DealerAction dealerAction) {
-        super(amount, dealerAction);
+public class Call extends BettingAction {
+    Call(Integer amount, DealerBettingResponse dealerBettingResponse) {
+        super(amount, dealerBettingResponse);
     }
 }

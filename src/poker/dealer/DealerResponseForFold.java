@@ -2,12 +2,11 @@ package poker.dealer;
 
 import poker.Player;
 import poker.PlayerStatus;
-import poker.betting.Fold;
 import poker.betting.Pot;
 
-public class DealerFoldAction extends DealerAction {
+public class DealerResponseForFold extends DealerBettingResponse {
 
-    DealerFoldAction(Player player, Pot pot) {
+    DealerResponseForFold(Player player, Pot pot) {
         super(pot, player);
 
     }
@@ -17,7 +16,7 @@ public class DealerFoldAction extends DealerAction {
         Player player = super.getPlayer();
         Pot pot = super.getPot();
         player.setStatus(PlayerStatus.FOLD);
-        System.out.println(player + " Folds");
+        System.out.println(player + "FOLDS");
 
         pot.removeShareholder(player);
     }

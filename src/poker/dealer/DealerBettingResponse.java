@@ -1,15 +1,15 @@
 package poker.dealer;
 
 import poker.Player;
-import poker.betting.BettingOption;
+import poker.betting.BettingAction;
 import poker.betting.Pot;
 
-abstract public class DealerAction {
+abstract public class DealerBettingResponse {
     private Player _player;
     private Pot _pot;
-    private BettingOption _option;
+    private BettingAction _option;
 
-    DealerAction(Pot pot, Player player) {
+    DealerBettingResponse(Pot pot, Player player) {
        _pot = pot;
        _player = player;
     }
@@ -22,10 +22,10 @@ abstract public class DealerAction {
         return _player;
     }
 
-    void setOption(BettingOption option) {
+    public void setOption(BettingAction option) {
         _option = option;
     }
-    BettingOption getOption() {
+    BettingAction getOption() {
         return _option;
     }
 

@@ -4,12 +4,11 @@ import poker.InternalPlayerClient
 import poker.Player
 import poker.betting.Bet
 import poker.betting.BettingDecision
-import poker.betting.BettingOption
+import poker.betting.BettingAction
 import poker.betting.Call
 import poker.betting.Check
 import poker.betting.Fold
 import poker.betting.Raise
-import poker.dealer.DealerAction
 
 class BettingDecisionTest extends GroovyTestCase {
     BettingDecision _decision
@@ -38,7 +37,7 @@ class BettingDecisionTest extends GroovyTestCase {
         // Dealer prompts player and presents betting decision
         /// setup
         // Player makes a choice by getting response from client
-        ArrayList<BettingOption> options = _decision.getOptions()
+        ArrayList<BettingAction> options = _decision.getOptions()
         _decision.choice(new Call(100))
         // Dealer detemines next action
 
@@ -64,7 +63,7 @@ class BettingDecisionTest extends GroovyTestCase {
         _decision.addOption(call)
         _decision.addOption(raise)
 
-        ArrayList<BettingOption> options = _decision.getOptions()
+        ArrayList<BettingAction> options = _decision.getOptions()
         _decision.choice(options.get(0))
 
         assertTrue(_decision._options.contains(_decision._choice))

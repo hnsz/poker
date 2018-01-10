@@ -4,8 +4,8 @@ import poker.Player;
 import poker.PlayerStatus;
 import poker.betting.Pot;
 
-public class DealerCheckAction extends DealerAction {
-    DealerCheckAction(Pot pot, Player player) {
+public class DealerResponseForCheck extends DealerBettingResponse {
+    DealerResponseForCheck(Pot pot, Player player) {
         super(pot, player);
     }
 
