@@ -14,6 +14,6 @@ public class DealerResponseForCheck extends DealerBettingResponse {
         Pot pot = super.getPot();
         Player player = super.getPlayer();
         player.setStatus(PlayerStatus.CHECK);
-        System.out.println(player + " Checks");
+        System.out.println(player + "Check");
     }
 }

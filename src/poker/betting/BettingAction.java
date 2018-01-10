@@ -3,22 +3,14 @@ package poker.betting;
 import poker.dealer.DealerBettingResponse;
 
 public abstract class BettingAction {
-    private Integer _amount;
     private DealerBettingResponse _dealerBettingResponse;
 
-    BettingAction(Integer amount, DealerBettingResponse dealerBettingResponse) {
-        _amount = amount;
+    BettingAction(DealerBettingResponse dealerBettingResponse) {
         _dealerBettingResponse = dealerBettingResponse;
-        _dealerBettingResponse.setOption(this);
-    }
-    public void setAmount(Integer amount) {
-        _amount = amount;
-    }
-    public Integer getAmount() {
-        return _amount;
+        _dealerBettingResponse.setAction(this);
     }
 
-    public DealerBettingResponse getDealerAction() {
+    public DealerBettingResponse getDealerResponse() {
         return _dealerBettingResponse;
     }
 }

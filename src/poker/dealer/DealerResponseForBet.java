@@ -2,6 +2,7 @@ package poker.dealer;
 
 import poker.Player;
 import poker.PlayerStatus;
+import poker.betting.Bet;
 import poker.betting.Pot;
 
 public class DealerResponseForBet extends DealerBettingResponse {
@@ -14,9 +15,10 @@ public class DealerResponseForBet extends DealerBettingResponse {
 
         Pot pot = super.getPot();
         Player player = super.getPlayer();
+        Bet bet = (Bet) getAction();
 
-        pot.transfer(getOption().getAmount(), player);
+        pot.transfer(bet.getAmount(), player);
         player.setStatus(PlayerStatus.BET);
-        System.out.println(player + "BET: " + getOption().getAmount());
+        System.out.println(player + "Bet: " + bet.getAmount());
     }
 }

@@ -3,7 +3,14 @@ package poker.betting;
 import poker.dealer.DealerBettingResponse;
 
 public class Call extends BettingAction {
-    Call(Integer amount, DealerBettingResponse dealerBettingResponse) {
-        super(amount, dealerBettingResponse);
+    Integer _amount;
+
+    Call(DealerBettingResponse dealerBettingResponse, Integer amount) {
+        super(dealerBettingResponse);
+        _amount = amount;
+    }
+
+    public Integer getAmount() {
+        return _amount;
     }
 }

@@ -16,7 +16,7 @@ public class DealerResponseForFold extends DealerBettingResponse {
         Player player = super.getPlayer();
         Pot pot = super.getPot();
         player.setStatus(PlayerStatus.FOLD);
-        System.out.println(player + "FOLDS");
+        System.out.println(player + "Call");
 
         pot.removeShareholder(player);
     }

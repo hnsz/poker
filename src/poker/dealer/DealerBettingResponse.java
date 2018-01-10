@@ -7,7 +7,7 @@ import poker.betting.Pot;
 abstract public class DealerBettingResponse {
     private Player _player;
     private Pot _pot;
-    private BettingAction _option;
+    private BettingAction _action;
 
     DealerBettingResponse(Pot pot, Player player) {
        _pot = pot;
@@ -22,11 +22,11 @@ abstract public class DealerBettingResponse {
         return _player;
     }
 
-    public void setOption(BettingAction option) {
-        _option = option;
+    public void setAction(BettingAction action) {
+        _action = action;
     }
-    BettingAction getOption() {
-        return _option;
+    BettingAction getAction() {
+        return _action;
     }
 
 

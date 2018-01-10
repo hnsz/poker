@@ -3,12 +3,16 @@ package poker._test
 import poker.InternalPlayerClient
 import poker.Player
 import poker.PlayerStatus
+import poker.betting.AllIn
 import poker.betting.Bet
 import poker.betting.BettingAction
 import poker.betting.Call
+import poker.betting.Check
+import poker.betting.Fold
 import poker.betting.Pot
 import poker.betting.Raise
 import poker.betting.ReRaise
+import poker.dealer.DealerResponseForAllIn
 import poker.dealer.DealerResponseForBet
 import poker.dealer.DealerResponseForCall
 import poker.dealer.DealerResponseForCheck
@@ -26,8 +30,9 @@ class DealerBettingResponseTest extends GroovyTestCase {
         Integer beforeShare = _pot.getShare(_player)
         assertTrue(_pot._activeInPot.contains(_player))
 
-        DealerBettingResponse response = new DealerResponseForFold(_player, _pot)
-        response.execute()
+        DealerBettingResponse dealerResponse = new DealerResponseForFold(_player, _pot)
+        BettingAction action = new Fold(dealerResponse)
+        action.getDealerResponse().execute()
 
         assertFalse(_pot._activeInPot.contains(_player))
         assertEquals(beforeStack, _player._stack)
@@ -40,8 +45,9 @@ class DealerBettingResponseTest extends GroovyTestCase {
         Integer beforeShare = _pot.getShare(_player)
         assertTrue(_pot._activeInPot.contains(_player))
 
-        DealerBettingResponse response = new DealerResponseForCheck(_pot, _player)
-        response.execute()
+        DealerBettingResponse dealerResponse = new DealerResponseForCheck(_pot, _player)
+        BettingAction action = new Check(dealerResponse)
+        action.getDealerResponse().execute()
 
         assertTrue(_pot._activeInPot.contains(_player))
         assertEquals(beforeStack, _player._stack)
@@ -53,9 +59,9 @@ class DealerBettingResponseTest extends GroovyTestCase {
     void testResponseForCall() {
         Integer beforeStack = _player._stack
         Integer beforeShare = _pot.getShare(_player)
-        DealerBettingResponse response = new DealerResponseForCall(_pot, _player)
-        BettingAction action = new Call(50, response)
-        response.execute()
+        DealerBettingResponse dealerResponse = new DealerResponseForCall(_pot, _player)
+        BettingAction action = new Call(dealerResponse, 50)
+        action.getDealerResponse().execute()
 
         assertEquals(beforeStack, _player._stack + 50)
         assertEquals(beforeShare, _pot.getShare(_player) - 50)
@@ -65,9 +71,9 @@ class DealerBettingResponseTest extends GroovyTestCase {
     void testResponseForBet() {
         Integer beforeStack = _player._stack
         Integer beforeShare = _pot.getShare(_player)
-        DealerBettingResponse response = new DealerResponseForBet(_pot, _player)
-        BettingAction action = new Bet(50, response)
-        response.execute()
+        DealerBettingResponse dealerResponse = new DealerResponseForBet(_pot, _player)
+        BettingAction action = new Bet(dealerResponse, 50)
+        action.getDealerResponse().execute()
 
         assertEquals(beforeStack, _player._stack + 50)
         assertEquals(beforeShare, _pot.getShare(_player) - 50)
@@ -78,9 +84,9 @@ class DealerBettingResponseTest extends GroovyTestCase {
     void testResponseForRaise() {
         Integer beforeStack = _player._stack
         Integer beforeShare = _pot.getShare(_player)
-        DealerBettingResponse response = new DealerResponseForRaise(_pot, _player)
-        BettingAction action = new Raise(50, response)
-        response.execute()
+        DealerBettingResponse dealerResponse = new DealerResponseForRaise(_pot, _player)
+        BettingAction action = new Raise(dealerResponse, 50)
+        action.getDealerResponse().execute()
 
         assertEquals(beforeStack, _player._stack + 50)
         assertEquals(beforeShare, _pot.getShare(_player) - 50)
@@ -91,9 +97,9 @@ class DealerBettingResponseTest extends GroovyTestCase {
     void testResponseForReRaise() {
         Integer beforeStack = _player._stack
         Integer beforeShare = _pot.getShare(_player)
-        DealerBettingResponse response = new DealerResponseForReRaise(_pot, _player)
-        BettingAction action = new ReRaise(50, response)
-        response.execute()
+        DealerBettingResponse dealerResponse = new DealerResponseForReRaise(_pot, _player)
+        BettingAction action = new ReRaise(dealerResponse, 50)
+        action.getDealerResponse().execute()
 
         assertEquals(beforeStack, _player._stack + 50)
         assertEquals(beforeShare, _pot.getShare(_player) - 50)
@@ -101,6 +107,18 @@ class DealerBettingResponseTest extends GroovyTestCase {
 
     }
 
+    void testResponseForAllIn() {
+        Integer beforeStack = _player._stack
+        Integer beforeShare = _pot.getShare(_player)
+        DealerBettingResponse dealerResponse = new DealerResponseForAllIn(_pot, _player)
+        BettingAction action = new AllIn(dealerResponse, _player._stack)
+        action.getDealerResponse().execute()
+
+        assertEquals(beforeStack, action.getAmount())
+        assertEquals(beforeShare + action.getAmount(), _pot.getShare(_player))
+        assertEquals(PlayerStatus.ALL_IN, _player.status())
+
+    }
 
     @Override
     void setUp() {

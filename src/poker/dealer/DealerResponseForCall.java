@@ -6,7 +6,6 @@ import poker.betting.Call;
 import poker.betting.Pot;
 
 public class DealerResponseForCall extends DealerBettingResponse {
-    private Call _call;
 
     DealerResponseForCall(Pot pot, Player player) {
         super(pot, player);
@@ -16,9 +15,11 @@ public class DealerResponseForCall extends DealerBettingResponse {
     void execute() {
         Pot pot = super.getPot();
         Player player = super.getPlayer();
+        Call call = (Call) getAction();
 
-        pot.transfer(getOption().getAmount(), player);
+
+        pot.transfer(call.getAmount(), player);
         player.setStatus(PlayerStatus.CALL);
-        System.out.println(player + "Call: " + getOption().getAmount());
+        System.out.println(player + "Call: " + call.getAmount());
     }
 }

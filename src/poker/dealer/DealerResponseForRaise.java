@@ -3,6 +3,7 @@ package poker.dealer;
 import poker.Player;
 import poker.PlayerStatus;
 import poker.betting.Pot;
+import poker.betting.Raise;
 
 public class DealerResponseForRaise extends DealerBettingResponse {
 
@@ -14,10 +15,11 @@ public class DealerResponseForRaise extends DealerBettingResponse {
     void execute() {
         Pot pot = super.getPot();
         Player player = super.getPlayer();
+        Raise raise = (Raise) getAction();
 
-        pot.transfer(getOption().getAmount(), player);
+        pot.transfer(raise.getAmount(), player);
         player.setStatus(PlayerStatus.RAISE);
-        System.out.println(player + "RAISE: " + getOption().getAmount());
+        System.out.println(player + "Raise: " + raise.getAmount());
 
     }
 }
