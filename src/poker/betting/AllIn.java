@@ -3,6 +3,8 @@ package poker.betting;
 import poker.Player;
 import poker.PlayerStatus;
 
+import java.util.ArrayList;
+
 public class AllIn extends BettingAction {
     Integer _amount;
 
@@ -21,5 +23,10 @@ public class AllIn extends BettingAction {
         pot.transfer(getAmount(), super.getPlayer());
         player.setStatus(PlayerStatus.ALL_IN);
         System.out.println(player + "All-in: " + getAmount());
+    }
+
+    @Override
+    public BettingAction followUp(Player player) {
+        return new Call(super.getPot(), player, getAmount());
     }
 }

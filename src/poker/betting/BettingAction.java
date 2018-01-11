@@ -2,6 +2,9 @@ package poker.betting;
 
 import poker.Player;
 
+import java.util.ArrayList;
+
+
 public abstract class BettingAction {
     private Pot _pot;
     private Player _player;
@@ -19,4 +22,5 @@ public abstract class BettingAction {
         return _player;
     }
     public abstract void execute();
+    public abstract BettingAction followUp(Player player);
 }
