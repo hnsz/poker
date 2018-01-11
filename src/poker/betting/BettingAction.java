@@ -1,16 +1,22 @@
 package poker.betting;
 
-import poker.dealer.DealerBettingResponse;
+import poker.Player;
 
 public abstract class BettingAction {
-    private DealerBettingResponse _dealerBettingResponse;
+    private Pot _pot;
+    private Player _player;
 
-    BettingAction(DealerBettingResponse dealerBettingResponse) {
-        _dealerBettingResponse = dealerBettingResponse;
-        _dealerBettingResponse.setAction(this);
+    BettingAction(Pot pot, Player player) {
+        _pot = pot;
+        _player = player;
+
+    }
+    public Pot getPot() {
+        return _pot;
     }
 
-    public DealerBettingResponse getDealerResponse() {
-        return _dealerBettingResponse;
+    public Player getPlayer() {
+        return _player;
     }
+    public abstract void execute();
 }

@@ -1,13 +1,25 @@
 package poker.betting;
 
-import poker.dealer.DealerBettingResponse;
+import poker.Player;
+import poker.PlayerStatus;
 
 public class AllIn extends BettingAction {
     Integer _amount;
 
-    AllIn(DealerBettingResponse dealerBettingResponse, Integer amount) {
-        super(dealerBettingResponse);
+    AllIn(Pot pot, Player player, Integer amount) {
+
+        super(pot, player);
         _amount = amount;
     }
+    public Integer getAmount() {
+        return _amount;
+    }
+    public void execute() {
+        Pot pot = super.getPot();
+        Player player = super.getPlayer();
 
+        pot.transfer(getAmount(), super.getPlayer());
+        player.setStatus(PlayerStatus.ALL_IN);
+        System.out.println(player + "All-in: " + getAmount());
+    }
 }

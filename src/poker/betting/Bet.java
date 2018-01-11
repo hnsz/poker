@@ -1,13 +1,14 @@
 package poker.betting;
 
-import poker.dealer.DealerBettingResponse;
+import poker.Player;
+import poker.PlayerStatus;
 
 public class Bet extends BettingAction {
     private Integer _minimum;
     private Integer _amount;
 
-    Bet(DealerBettingResponse dealerBettingResponse, Integer minimum) {
-        super(dealerBettingResponse);
+    Bet(Pot pot, Player player, Integer minimum) {
+        super(pot, player);
         _minimum = minimum;
         _amount = minimum;
     }
@@ -22,5 +23,15 @@ public class Bet extends BettingAction {
 
     public Integer getAmount() {
         return _amount;
+    }
+    @Override
+    public void execute() {
+
+        Pot pot = super.getPot();
+        Player player = super.getPlayer();
+
+        pot.transfer(getAmount(), player);
+        player.setStatus(PlayerStatus.BET);
+        System.out.println(player + "Bet: " + getAmount());
     }
 }

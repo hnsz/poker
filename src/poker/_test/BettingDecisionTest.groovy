@@ -14,19 +14,6 @@ class BettingDecisionTest extends GroovyTestCase {
     BettingDecision _decision
     Player _player
 
-    void setUp() {
-        super.setUp()
-
-        Player _player =  new Player("playername", 3001, new InternalPlayerClient())
-        _decision = new BettingDecision(_player)
-
-
-        _decision.addOption(new Fold(0))
-        _decision.addOption(new Call(100))
-        _decision.addOption(new Check(0))
-        _decision.addOption(new Bet(200))
-        _decision.addOption(new Raise(200))
-    }
 
     void tearDown() {
         _decision = null
@@ -39,7 +26,7 @@ class BettingDecisionTest extends GroovyTestCase {
         // Player makes a choice by getting response from client
         ArrayList<BettingAction> options = _decision.getOptions()
         _decision.choice(new Call(100))
-        // Dealer detemines next action
+        // Dealer determines next action
 
         //  Fold: Remove player from pot
         //  Check: Nothing
@@ -67,5 +54,25 @@ class BettingDecisionTest extends GroovyTestCase {
         _decision.choice(options.get(0))
 
         assertTrue(_decision._options.contains(_decision._choice))
+    }
+    void setUp() {
+        super.setUp()
+
+        ArrayList<Player> _players = new ArrayList<>([
+                new Player("SB", 3001, new InternalPlayerClient()),
+                new Player("BB", 3002, new InternalPlayerClient()),
+                new Player("Player 3", 3003, new InternalPlayerClient()),
+                new Player("Player 4", 3004, new InternalPlayerClient()),
+                new Player("Button", 3000, new InternalPlayerClient())
+
+                ])
+        _decision = new BettingDecision(_player)
+
+
+        _decision.addOption(new Fold(0))
+        _decision.addOption(new Call(100))
+        _decision.addOption(new Check(0))
+        _decision.addOption(new Bet(200))
+        _decision.addOption(new Raise(200))
     }
 }
