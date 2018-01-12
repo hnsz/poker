@@ -14,6 +14,6 @@ public class InternalPlayerClient implements PlayerClient {
 //          command pattern to encapsulate all decisions
 
 
-        decision.choice(options.get(0));
+        decision.select(0);
     }
 }

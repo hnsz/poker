@@ -43,6 +43,7 @@ public class Player {
 
     public Player setStatus(PlayerStatus status) {
         _status = status;
+        System.out.println(_nick + ":" + status);
         return this;
     }
 

@@ -4,6 +4,8 @@ import poker.Player;
 import poker.PlayerStatus;
 import poker.dealer.DealerBettingResponse;
 
+import java.util.ArrayList;
+
 public class Fold extends BettingAction {
 
     Fold(Pot pot, Player player) {
@@ -15,8 +17,18 @@ public class Fold extends BettingAction {
         Player player = super.getPlayer();
         Pot pot = super.getPot();
         player.setStatus(PlayerStatus.FOLD);
-        System.out.println(player + "Call");
 
         pot.removeShareholder(player);
+    }
+
+
+    @Override
+    public ArrayList<BettingAction> followUps(Player player) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean matchesConstraints(Integer response) {
+        return (response == 0);
     }
 }

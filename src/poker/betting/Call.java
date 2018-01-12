@@ -2,14 +2,15 @@ package poker.betting;
 
 import poker.Player;
 import poker.PlayerStatus;
-import poker.dealer.DealerBettingResponse;
+
+import java.util.ArrayList;
 
 public class Call extends BettingAction {
     Integer _amount;
 
-    Call(Pot pot, Player player, Integer amount) {
+    Call(Pot pot, Player player) {
         super(pot, player);
-        _amount = amount;
+        _amount = pot.toCall(player);
     }
 
 
@@ -25,6 +26,17 @@ public class Call extends BettingAction {
 
         pot.transfer(getAmount(), player);
         player.setStatus(PlayerStatus.CALL);
-        System.out.println(player + "Call: " + getAmount());
+    }
+
+    @Override
+    public ArrayList<BettingAction> followUps(Player followingPlayer) {
+         ArrayList<BettingAction> actions = new ArrayList<>();
+
+         return actions;
+    }
+
+    @Override
+    public boolean matchesConstraints(Integer response) {
+        return false;
     }
 }

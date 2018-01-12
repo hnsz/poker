@@ -6,25 +6,26 @@ import java.util.ArrayList;
 
 public class BettingDecision {
     private ArrayList<BettingAction> _options = new ArrayList<>();
-    private BettingAction _choice;
+    private BettingAction _selected;
     private Player _player;
 
     public BettingDecision(Player player) {
         _player = player;
     }
 
-    public void addOption(BettingAction option) {
-        _options.add(option);
+    public void setOptions(ArrayList<BettingAction> options) {
+        _options = options;
     }
 
     public ArrayList<BettingAction> getOptions() {
         return _options;
     }
 
-    public void choice(BettingAction select) {
+    public void select(Integer response) {
         for (BettingAction option : _options) {
-            if (option.getClass() == select.getClass()) {
-
+            if (option.matchesConstraints(response)) {
+                _selected = option;
+                break;
             }
         }
     }

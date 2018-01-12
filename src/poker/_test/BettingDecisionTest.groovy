@@ -8,12 +8,14 @@ import poker.betting.BettingAction
 import poker.betting.Call
 import poker.betting.Check
 import poker.betting.Fold
+import poker.betting.NoAction
+import poker.betting.Pot
 import poker.betting.Raise
 
 class BettingDecisionTest extends GroovyTestCase {
     BettingDecision _decision
-    Player _player
-
+    ArrayList<Player> _players
+    Pot _pot
 
     void tearDown() {
         _decision = null
@@ -24,8 +26,6 @@ class BettingDecisionTest extends GroovyTestCase {
         // Dealer prompts player and presents betting decision
         /// setup
         // Player makes a choice by getting response from client
-        ArrayList<BettingAction> options = _decision.getOptions()
-        _decision.choice(new Call(100))
         // Dealer determines next action
 
         //  Fold: Remove player from pot
@@ -42,37 +42,29 @@ class BettingDecisionTest extends GroovyTestCase {
 
 
     void testChoice() {
-        Fold fold = new Fold(0)
-        Call call = new Call(100)
-        Raise raise = new Raise(200)
+        Player player = _players[2]
+        player._stack = 100
+        NoAction noAction =  new NoAction(_pot, player)
+        _decision.setOptions(noAction.followUps(player))
 
-        _decision.addOption(fold)
-        _decision.addOption(call)
-        _decision.addOption(raise)
+        _decision.select(0)
 
-        ArrayList<BettingAction> options = _decision.getOptions()
-        _decision.choice(options.get(0))
 
-        assertTrue(_decision._options.contains(_decision._choice))
+        _decision._selected.execute()
     }
     void setUp() {
         super.setUp()
-
-        ArrayList<Player> _players = new ArrayList<>([
+        _players = new ArrayList<>([
                 new Player("SB", 3001, new InternalPlayerClient()),
                 new Player("BB", 3002, new InternalPlayerClient()),
                 new Player("Player 3", 3003, new InternalPlayerClient()),
                 new Player("Player 4", 3004, new InternalPlayerClient()),
                 new Player("Button", 3000, new InternalPlayerClient())
-
                 ])
-        _decision = new BettingDecision(_player)
+
+        _pot = new Pot(_players)
+        _decision = new BettingDecision(_players[2])
 
 
-        _decision.addOption(new Fold(0))
-        _decision.addOption(new Call(100))
-        _decision.addOption(new Check(0))
-        _decision.addOption(new Bet(200))
-        _decision.addOption(new Raise(200))
     }
 }

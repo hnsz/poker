@@ -10,9 +10,11 @@ import java.util.Iterator;
 public class Pot {
     private ArrayDeque<SubPot> _potList;
     private ArrayList<Player> _activeInPot;
+    private Integer _highestShare;
 
     public Pot(ArrayList<Player> players) {
         _activeInPot = new ArrayList<>(players);
+        _highestShare = 0;
         initPotList();
     }
 
@@ -25,6 +27,15 @@ public class Pot {
             }
         }
         return sum;
+    }
+
+    public Integer toCall(Player player) {
+        if (getShare(player) < _highestShare) {
+            return _highestShare - getShare(player);
+        }
+        else {
+            return 0;
+        }
     }
     public void setWinners(ArrayList<ArrayList<Player>> winnerOrder) {
         for (ArrayList<Player> winnerRank : winnerOrder) {
@@ -84,6 +95,7 @@ public class Pot {
                 }
             }
         }
+        _highestShare = Math.max(_highestShare, getShare(player));
     }
     private void initPotList() {
         SubPot pot;

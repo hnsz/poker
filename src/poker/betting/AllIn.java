@@ -8,10 +8,9 @@ import java.util.ArrayList;
 public class AllIn extends BettingAction {
     Integer _amount;
 
-    AllIn(Pot pot, Player player, Integer amount) {
-
+    AllIn(Pot pot, Player player) {
         super(pot, player);
-        _amount = amount;
+        _amount = player.getStack();
     }
     public Integer getAmount() {
         return _amount;
@@ -22,11 +21,19 @@ public class AllIn extends BettingAction {
 
         pot.transfer(getAmount(), super.getPlayer());
         player.setStatus(PlayerStatus.ALL_IN);
-        System.out.println(player + "All-in: " + getAmount());
     }
 
     @Override
-    public BettingAction followUp(Player player) {
-        return new Call(super.getPot(), player, getAmount());
+    public ArrayList<BettingAction> followUps(Player followingPlayer) {
+        ArrayList<BettingAction> actions = new ArrayList<>();
+
+        actions.add(new Check(getPot(),followingPlayer));
+
+        return actions;
+    }
+
+    @Override
+    public boolean matchesConstraints(Integer response) {
+        return (response == getAmount());
     }
 }

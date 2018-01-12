@@ -3,6 +3,8 @@ package poker.betting;
 import poker.Player;
 import poker.PlayerStatus;
 
+import java.util.ArrayList;
+
 public class Check extends BettingAction {
 
     Check(Pot pot, Player player) {
@@ -13,6 +15,22 @@ public class Check extends BettingAction {
     public void execute() {
         Player player = super.getPlayer();
         player.setStatus(PlayerStatus.CHECK);
-        System.out.println(player + "Check");
+    }
+
+    @Override
+    public ArrayList<BettingAction> followUps(Player player) {
+        ArrayList<BettingAction> actions = new ArrayList<>();
+
+        actions.add(new Check(getPot(), player));
+        actions.add(new Bet(getPot(), player));
+        actions.add(new AllIn(getPot(), player));
+
+        return actions;
+
+    }
+
+    @Override
+    public boolean matchesConstraints(Integer response) {
+        return (response == 0);
     }
 }

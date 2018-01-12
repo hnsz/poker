@@ -2,11 +2,10 @@ package poker.betting;
 
 import poker.Player;
 import poker.PlayerStatus;
-import poker.dealer.DealerBettingResponse;
 
 public class ReRaise extends Raise {
-    ReRaise(Pot pot, Player player, Integer minimum) {
-        super(pot, player, minimum);
+    ReRaise(Pot pot, Player player) {
+        super(pot, player);
     }
     @Override
     public void execute() {
@@ -16,7 +15,10 @@ public class ReRaise extends Raise {
         pot.transfer(getAmount(), player);
 
         player.setStatus(PlayerStatus.RERAISE);
-        System.out.println(player + "Re-raise: " + getAmount());
+    }
 
+    @Override
+    public boolean matchesConstraints(Integer response) {
+        return super.matchesConstraints(response);
     }
 }

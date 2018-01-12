@@ -12,15 +12,15 @@ public abstract class BettingAction {
     BettingAction(Pot pot, Player player) {
         _pot = pot;
         _player = player;
-
     }
+
     public Pot getPot() {
         return _pot;
     }
-
     public Player getPlayer() {
         return _player;
     }
     public abstract void execute();
-    public abstract BettingAction followUp(Player player);
+    public abstract ArrayList<BettingAction> followUps(Player followingPlayer);
+    public abstract boolean matchesConstraints( Integer response);
 }
