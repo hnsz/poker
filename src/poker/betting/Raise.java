@@ -9,6 +9,7 @@ public class Raise extends Bet {
 
     Raise(Pot pot, Player player) {
         super(pot, player);
+        super.setString("Raise(" + super.getMinimum() +"-" + super.getMaximum()+")");
     }
 
     @Override

@@ -9,6 +9,7 @@ public class Check extends BettingAction {
 
     Check(Pot pot, Player player) {
         super(pot, player);
+        super.setString("Check");
     }
 
     @Override

@@ -11,6 +11,7 @@ public class AllIn extends BettingAction {
     AllIn(Pot pot, Player player) {
         super(pot, player);
         _amount = player.getStack();
+        super.setString("All-In(" +getAmount()+")");
     }
     public Integer getAmount() {
         return _amount;

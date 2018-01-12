@@ -17,6 +17,7 @@ public class Bet extends BettingAction {
         _maximum = player.getStack();
         _amount = _minimum;
         assert _minimum <= _maximum: "Bad values for raise. This player cannot raise unless all-in.";
+        super.setString("Bet(" + _minimum +"-"+ _maximum+")");
     }
 
     public Integer getMinimum() {

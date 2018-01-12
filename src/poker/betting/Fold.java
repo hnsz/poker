@@ -2,7 +2,6 @@ package poker.betting;
 
 import poker.Player;
 import poker.PlayerStatus;
-import poker.dealer.DealerBettingResponse;
 
 import java.util.ArrayList;
 
@@ -10,6 +9,7 @@ public class Fold extends BettingAction {
 
     Fold(Pot pot, Player player) {
         super(pot, player);
+        super.setString("Fold");
     }
 
     @Override

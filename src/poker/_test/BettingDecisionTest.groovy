@@ -44,10 +44,17 @@ class BettingDecisionTest extends GroovyTestCase {
     void testChoice() {
         Player player = _players[2]
         player._stack = 100
-        NoAction noAction =  new NoAction(_pot, player)
+        _players[1].recieveChips(100)
+        _pot.transfer(20, _players[1])
+        println(_pot.toCall(player))
+        println(_pot.getShare(_players[1]))
+
+        BettingAction noAction =  new Bet(_pot, _players[1])
         _decision.setOptions(noAction.followUps(player))
 
-        _decision.select(0)
+        println(_decision.getOptions())
+        _decision.select(20)
+        println(_decision._selected)
 
 
         _decision._selected.execute()

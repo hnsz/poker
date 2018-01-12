@@ -58,6 +58,7 @@ public class Pot {
 
         player.subtractChips(amount);
         insert(amount, player);
+        _highestShare = Math.max(_highestShare, getShare(player));
     }
     public void removeShareholder(Player shareholder) {
         for (SubPot subPot : _potList) {
@@ -95,7 +96,6 @@ public class Pot {
                 }
             }
         }
-        _highestShare = Math.max(_highestShare, getShare(player));
     }
     private void initPotList() {
         SubPot pot;

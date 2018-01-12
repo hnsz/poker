@@ -11,6 +11,7 @@ public class Call extends BettingAction {
     Call(Pot pot, Player player) {
         super(pot, player);
         _amount = pot.toCall(player);
+        super.setString("Call(" + getAmount() +")");
     }
 
 
@@ -37,6 +38,6 @@ public class Call extends BettingAction {
 
     @Override
     public boolean matchesConstraints(Integer response) {
-        return false;
+        return (response == getPot().toCall(getPlayer()));
     }
 }

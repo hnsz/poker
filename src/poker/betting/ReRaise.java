@@ -6,6 +6,7 @@ import poker.PlayerStatus;
 public class ReRaise extends Raise {
     ReRaise(Pot pot, Player player) {
         super(pot, player);
+        super.setString("Re-raise(" + super.getMinimum() +"-" + super.getMaximum()+")");
     }
     @Override
     public void execute() {
