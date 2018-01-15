@@ -2,10 +2,9 @@ package poker.betting;
 
 import poker.Player;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Pot {
     private ArrayDeque<SubPot> _potList;
@@ -99,16 +98,18 @@ public class Pot {
     }
     private void initPotList() {
         SubPot pot;
-        ArrayList<Player> players, byStackSizeAsc;
+        ArrayList<Player> players;
+        List<Integer> byStackSizeAsc;
 
         _potList = new ArrayDeque<>();
         players = new ArrayList<>(_activeInPot);
-        byStackSizeAsc = new ArrayList<>(_activeInPot);
-        byStackSizeAsc.sort(Comparator.comparing(Player::getStack));
+        byStackSizeAsc = _activeInPot.stream().map(Player::getStack).distinct().collect(Collectors.toList());
+        byStackSizeAsc.sort(Integer::compareTo);
 
-        for (Player p : byStackSizeAsc) {
-            pot = new SubPot(new ArrayList<>(players), p.getStack());
-            players.remove(p);
+        for (Integer stackSize : byStackSizeAsc) {
+            pot = new SubPot(new ArrayList<>(players), stackSize);
+
+            players.removeIf(player -> player.getStack() <= stackSize);
             _potList.push(pot);
         }
     }

@@ -43,7 +43,7 @@ public class Player {
 
     public Player setStatus(PlayerStatus status) {
         _status = status;
-        System.out.println(_nick + ":" + status);
+        System.out.println("Player(" +_nick + ") Status Change to:" + status);
         return this;
     }
 
@@ -60,8 +60,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "_nick='" + _nick + '\'' +
-                '}';
+        return "Player(" + _nick + ')';
     }
 }

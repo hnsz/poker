@@ -12,6 +12,36 @@ class PotTest extends GroovyTestCase {
     void tearDown() {
     }
 
+    void testDistinctUpperBoundSubPot() {
+        _players[0]._stack = 1000
+        _players[1]._stack = 1000
+        _players[2]._stack = 1000
+        _players[3]._stack = 1200
+
+        Pot pot = new Pot(_players)
+
+        assertEquals(2, pot._potList.size())
+
+        _players[0]._stack = 1000
+        _players[1]._stack = 1800
+        _players[2]._stack = 1000
+        _players[3]._stack = 1799
+
+        pot = new Pot(_players)
+
+        assertEquals(3, pot._potList.size())
+
+        _players[0]._stack = 0
+        _players[1]._stack = 0
+        _players[2]._stack = 0
+        _players[3]._stack = 100
+
+        pot = new Pot(_players)
+
+        //  Actually 0 shouldn't be in the pot but don't know if this should be checked here at all. This logic works.
+        assertEquals(2, pot._potList.size())
+    }
+
     void testSimulatebettingAndPayout() {
         //startstack    100, 2000, 30, 400
         //bet           30, 200, 30, 300

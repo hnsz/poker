@@ -18,6 +18,9 @@ public class Call extends BettingAction {
     public Integer getAmount() {
         return _amount;
     }
+    public void setAmount(Integer amount) {
+        _amount = amount;
+    }
 
     @Override
     public void execute() {

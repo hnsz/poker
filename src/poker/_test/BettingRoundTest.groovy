@@ -21,11 +21,7 @@ class BettingRoundTest extends GroovyTestCase {
     void testFirstDecision() {
         Player player = _bettingQueue.pop()
         BettingDecision bettingDecision = new BettingDecision(player)
-        bettingDecision.addOption(new Fold(_pot, player))
-        bettingDecision.addOption(new Check(_pot, player))
-        bettingDecision.addOption(new Call(_pot, player, 40 - _pot.getShare(player)))
-        bettingDecision.addOption(new Bet(_pot, player,40 - _pot.getShare(player) + 40))
-        bettingDecision.addOption(new AllIn(_pot, player, player.getStack()))
+
 
     }
 
