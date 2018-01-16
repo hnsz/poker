@@ -15,9 +15,12 @@ public class BettingQueueFactory {
         BettingDecision sbCall = new BettingDecision(sb);
         BettingDecision bbCall = new BettingDecision(bb);
         ArrayList<BettingAction> optionsSB = new ArrayList<>();
-        ArrayList<BettingAction> optionBB = new ArrayList<>();
-        option
-        sbCall.setOptions(new CallSB(pot,sb));
+        ArrayList<BettingAction> optionsBB = new ArrayList<>();
+        optionsSB.add(new CallSB(pot,sb));
+        optionsBB.add(new CallBB(pot,bb));
+        sbCall.setOptions(optionsSB);
+        bbCall.setOptions(optionsBB);
+
     }
     public static final ArrayList<BettingAction> preFlop(Pot pot, Player player) {
         ArrayList<BettingAction> actions = new ArrayList<>();
