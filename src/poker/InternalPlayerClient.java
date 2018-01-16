@@ -3,17 +3,25 @@ package poker;
 import poker.betting.BettingDecision;
 import poker.betting.BettingAction;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class InternalPlayerClient implements PlayerClient {
+    private ArrayDeque<Integer> _responseList;
+
+    public InternalPlayerClient(ArrayList<Integer> responseList) {
+        _responseList = new ArrayDeque<>(responseList);
+    }
+
     @Override
     public void getResponse(BettingDecision decision) {
+        assert !_responseList.isEmpty(): "No responses left in queue.";
         ArrayList<BettingAction> options = decision.getOptions();
-//           pick an option
-//           according to decision queue
-//          command pattern to encapsulate all decisions
+        Integer response;
 
+        response = _responseList.pop();
 
-        decision.select(0);
+        decision.select(response);
+        decision.getSelected().setAmount(response);
     }
 }

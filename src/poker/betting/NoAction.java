@@ -26,6 +26,11 @@ public class NoAction extends BettingAction {
     }
 
     @Override
+    public void setAmount(Integer amount) {
+        //do nothing
+    }
+
+    @Override
     public boolean matchesConstraints(Integer response) {
         return false;
     }

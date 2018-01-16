@@ -31,6 +31,11 @@ public class Check extends BettingAction {
     }
 
     @Override
+    public void setAmount(Integer amount) {
+        // do nothing
+    }
+
+    @Override
     public boolean matchesConstraints(Integer response) {
         return (response == 0);
     }

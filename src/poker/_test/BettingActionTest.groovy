@@ -186,7 +186,7 @@ class BettingActionTest extends GroovyTestCase {
         //Button call
         print("Options" + button + ":")
         println(action.followUps(button))
-        action = new Call(_pot, button)
+        action = new AllIn(_pot, button)
         assertTrue(action.matchesConstraints(30))
         println(action)
         action.execute()

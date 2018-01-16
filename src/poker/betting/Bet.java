@@ -16,8 +16,15 @@ public class Bet extends BettingAction {
         super(pot, player);
         _minimum = pot.toCall(player) + TableRules.BB;
         _maximum = player.getStack();
-        assert _minimum <= _maximum: "Bad values for raise. This player cannot raise unless all-in.";
+        assert possible(pot, player): "Check possible() method before instantiating this class.";
         super.setString("Bet(" + _minimum +"-"+ _maximum+")");
+    }
+
+    public static boolean possible(Pot pot, Player player) {
+        Integer minimum, maximum;
+        minimum = pot.toCall(player) + TableRules.BB;
+        maximum = player.getStack();
+        return (minimum < maximum);
     }
 
     public Integer getMinimum() {

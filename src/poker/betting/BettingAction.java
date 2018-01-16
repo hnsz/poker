@@ -25,6 +25,7 @@ public abstract class BettingAction {
     public abstract ArrayList<BettingAction> followUps(Player followingPlayer);
     public abstract boolean matchesConstraints( Integer response);
     protected void setString(String s) {_string = s;}
+    public abstract void setAmount(Integer amount);
 
     @Override
     public String toString() {

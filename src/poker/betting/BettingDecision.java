@@ -29,4 +29,20 @@ public class BettingDecision {
             }
         }
     }
+    public BettingAction getSelected() {
+        return _selected;
+    }
+
+    public boolean getPlayerResponse() {
+        _player.prompt(this);
+        assert _selected != null: " Player response wasn't resolved to a selected bettingaction from options";
+        return (_selected != null);
+    }
+
+    @Override
+    public String toString() {
+        return  _player +
+                " Chose: " + _selected +
+                " from options" + _options;
+    }
 }

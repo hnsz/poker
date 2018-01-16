@@ -11,7 +11,6 @@ public class Raise extends Bet {
         super(pot, player);
         super.setString("Raise(" + super.getMinimum() +"-" + super.getMaximum()+")");
     }
-
     @Override
     public void execute() {
         Pot pot = super.getPot();
@@ -23,11 +22,17 @@ public class Raise extends Bet {
     @Override
     public ArrayList<BettingAction> followUps(Player followingPlayer) {
         ArrayList<BettingAction> actions = new ArrayList<>();
+        Pot pot = getPot();
 
-        actions.add(new Fold(getPot(), followingPlayer));
-        actions.add(new Call(getPot(), followingPlayer));
-        actions.add(new Raise(getPot(), followingPlayer));
-        actions.add(new AllIn(getPot(), followingPlayer));
+        actions.add(new Fold(pot, followingPlayer));
+        if (Call.possible(pot, followingPlayer)) {
+            actions.add(new Call(pot, followingPlayer));
+        }
+        if (ReRaise.possible(pot, followingPlayer)) {
+            actions.add(new ReRaise(pot, followingPlayer));
+        }
+
+        actions.add(new AllIn(pot, followingPlayer));
 
         return actions;
     }

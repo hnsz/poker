@@ -21,6 +21,10 @@ public class Fold extends BettingAction {
         pot.removeShareholder(player);
     }
 
+    @Override
+    public void setAmount(Integer amount) {
+        //do nothing
+    }
 
     @Override
     public ArrayList<BettingAction> followUps(Player player) {
