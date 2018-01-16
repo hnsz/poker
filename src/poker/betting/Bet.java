@@ -55,10 +55,17 @@ public class Bet extends BettingAction {
     @Override
     public ArrayList<BettingAction> followUps(Player followingPlayer) {
         ArrayList<BettingAction> actions = new ArrayList<>();
-        actions.add(new Fold(getPot(), followingPlayer));
-        actions.add(new Call(getPot(), followingPlayer));
-        actions.add(new Raise(getPot(), followingPlayer));
-        actions.add(new AllIn(getPot(), followingPlayer));
+        Pot pot = getPot();
+
+
+        if (pot.toCall(followingPlayer) > 0) {
+            actions.add(new Fold(pot, followingPlayer));
+            actions.add(new Call(pot, followingPlayer));
+        }
+        if (Raise.possible(pot, followingPlayer)) {
+            actions.add(new Raise(pot, followingPlayer));
+        }
+        actions.add(new AllIn(pot, followingPlayer));
 
         return actions;
     }

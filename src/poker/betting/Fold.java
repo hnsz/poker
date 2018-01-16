@@ -22,12 +22,7 @@ public class Fold extends BettingAction {
     }
 
     @Override
-    public void setAmount(Integer amount) {
-        //do nothing
-    }
-
-    @Override
-    public ArrayList<BettingAction> followUps(Player player) {
+    public ArrayList<BettingAction> requeuingOptions() {
         return new ArrayList<>();
     }
 

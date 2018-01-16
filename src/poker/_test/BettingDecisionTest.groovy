@@ -2,17 +2,9 @@ package poker._test
 
 import poker.InternalPlayerClient
 import poker.Player
-import poker.betting.Bet
 import poker.betting.BettingDecision
-import poker.betting.BettingAction
-import poker.betting.Call
-import poker.betting.CallSB
-import poker.betting.Check
-import poker.betting.Fold
-import poker.betting.NoAction
 import poker.betting.Pot
-import poker.betting.Raise
-import poker.betting.StartOptions
+import poker.betting.BettingQueueFactory
 import poker.game.TableRules
 
 class BettingDecisionTest extends GroovyTestCase {
@@ -53,23 +45,23 @@ class BettingDecisionTest extends GroovyTestCase {
         bettingQueue.add(new BettingDecision(sb))
        for (BettingDecision dec : bettingQueue) {
 
-            dec.setOptions(StartOptions.getPreflop(_pot, dec._player))
+            dec.setOptions(BettingQueueFactory.getPreflop(_pot, dec._player))
         }
         decision = new BettingDecision(bb)
-        decision.setOptions(StartOptions.getBB(_pot, bb))
+        decision.setOptions(BettingQueueFactory.getBB(_pot, bb))
         bettingQueue.add(decision)
 
         while(!bettingQueue.isEmpty()) {
-            decision = bettingQueue.pop()
-            decision.getPlayerResponse()
-            println(decision)
-            decision._selected.execute()
-            for (BettingDecision dec : bettingQueue) {
-                ArrayList<BettingAction> options = decision._selected.followUps(dec._player)
-                if(!options.isEmpty())
-                    dec.setOptions(options)
+            println("Size Queue: " + bettingQueue.size())
+            for (BettingDecision bd : bettingQueue) {
+                print(bd._player)
             }
-            bettingQueue.add(new BettingDecision(decision._player))
+            println()
+
+            decision = bettingQueue.pop()
+
+            println(decision._options)
+            decision.execute(bettingQueue)
         }
     }
     void setUp() {

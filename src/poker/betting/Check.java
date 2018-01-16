@@ -19,23 +19,6 @@ public class Check extends BettingAction {
     }
 
     @Override
-    public ArrayList<BettingAction> followUps(Player player) {
-        ArrayList<BettingAction> actions = new ArrayList<>();
-
-        actions.add(new Check(getPot(), player));
-        actions.add(new Bet(getPot(), player));
-        actions.add(new AllIn(getPot(), player));
-
-        return actions;
-
-    }
-
-    @Override
-    public void setAmount(Integer amount) {
-        // do nothing
-    }
-
-    @Override
     public boolean matchesConstraints(Integer response) {
         return (response == 0);
     }

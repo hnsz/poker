@@ -22,11 +22,24 @@ public abstract class BettingAction {
         return _player;
     }
     public abstract void execute();
-    public abstract ArrayList<BettingAction> followUps(Player followingPlayer);
+
+    public ArrayList<BettingAction> followUps(Player followingPlayer){
+        return new ArrayList<>();
+    }
     public abstract boolean matchesConstraints( Integer response);
     protected void setString(String s) {_string = s;}
-    public abstract void setAmount(Integer amount);
 
+    public void setAmount(Integer amount) {
+        // do nothing
+    }
+    public ArrayList<BettingAction> requeuingOptions() {
+        ArrayList<BettingAction> actions = new ArrayList<>();
+        actions.add(new NoAction(getPot(), getPlayer()));
+        return actions;
+    }
+    public boolean responseRequired() {
+        return true;
+    }
     @Override
     public String toString() {
         return _string;

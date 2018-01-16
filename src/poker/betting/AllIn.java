@@ -33,11 +33,11 @@ public class AllIn extends BettingAction {
         Player currentPlayer = getPlayer();
         Pot pot = getPot();
 
-        if (pot.getShare(followingPlayer) >= pot.getShare(currentPlayer)) {
+        if (pot.getShare(followingPlayer ) >= pot.getShare(currentPlayer)) {
             return new ArrayList<>();
         }
-        actions.add(new Fold(pot, followingPlayer));
-        if (Call.possible(getPot(), followingPlayer)) {
+        if (pot.toCall(followingPlayer) > 0) {
+            actions.add(new Fold(pot, followingPlayer));
             actions.add(new Call(getPot(), followingPlayer));
         }
         if (ReRaise.possible(pot, followingPlayer)) {
@@ -50,8 +50,8 @@ public class AllIn extends BettingAction {
     }
 
     @Override
-    public void setAmount(Integer amount) {
-        //do nothing
+    public ArrayList<BettingAction> requeuingOptions() {
+        return new ArrayList<>();
     }
 
     @Override

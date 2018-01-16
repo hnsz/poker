@@ -14,12 +14,4 @@ public class CallSB extends Call {
     public boolean matchesConstraints(Integer response) {
         return (response == TableRules.SB);
     }
-    @Override
-    public ArrayList<BettingAction> followUps(Player followingPlayer) {
-        ArrayList<BettingAction> actions = new ArrayList<>();
-        actions.add(new Fold(getPot(), followingPlayer));
-        actions.add(new CallBB(getPot(), followingPlayer));
-
-        return actions;
-    }
 }

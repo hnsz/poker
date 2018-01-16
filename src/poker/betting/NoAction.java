@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class NoAction extends BettingAction {
     NoAction(Pot pot, Player player) {
         super(pot, player);
+        super.setString("No Action");
     }
 
     @Override
@@ -15,23 +16,17 @@ public class NoAction extends BettingAction {
     }
 
     @Override
-    public ArrayList<BettingAction> followUps(Player followingPlayer) {
-        ArrayList<BettingAction> actions = new ArrayList<>();
-
-        actions.add(new Check(getPot(), followingPlayer));
-        actions.add(new Bet(getPot(), followingPlayer));
-        actions.add(new AllIn(getPot(), followingPlayer));
-
-        return actions;
+    public boolean responseRequired() {
+        return false;
     }
 
     @Override
-    public void setAmount(Integer amount) {
-        //do nothing
+    public ArrayList<BettingAction> requeuingOptions() {
+        return new ArrayList<>();
     }
 
     @Override
     public boolean matchesConstraints(Integer response) {
-        return false;
+        return true;
     }
 }
