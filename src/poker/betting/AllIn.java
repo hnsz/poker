@@ -37,7 +37,7 @@ public class AllIn extends BettingAction {
             return new ArrayList<>();
         }
         actions.add(new Fold(pot, followingPlayer));
-        if (Call.possible(getPot(), followingPlayer)) {
+        if (Call.possible(pot, followingPlayer)) {
             actions.add(new Call(getPot(), followingPlayer));
         }
         if (ReRaise.possible(pot, followingPlayer)) {

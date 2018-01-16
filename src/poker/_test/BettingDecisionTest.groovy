@@ -2,6 +2,7 @@ package poker._test
 
 import poker.InternalPlayerClient
 import poker.Player
+import poker.PlayerStatus
 import poker.betting.Bet
 import poker.betting.BettingDecision
 import poker.betting.BettingAction
@@ -45,6 +46,10 @@ class BettingDecisionTest extends GroovyTestCase {
 
         _pot.transfer(TableRules.SB, sb)
         _pot.transfer(TableRules.BB, bb)
+        println("stacks at start of round")
+        for (Player p : _players) {
+            println("" + p + " " + p.getStack())
+        }
         bettingQueue =  new ArrayDeque<BettingDecision>()
 
         bettingQueue.add(new BettingDecision(player3))
@@ -60,6 +65,7 @@ class BettingDecisionTest extends GroovyTestCase {
         bettingQueue.add(decision)
 
         while(!bettingQueue.isEmpty()) {
+            println("Decision queue left: " + bettingQueue.size())
             decision = bettingQueue.pop()
             decision.getPlayerResponse()
             println(decision)
@@ -69,7 +75,23 @@ class BettingDecisionTest extends GroovyTestCase {
                 if(!options.isEmpty())
                     dec.setOptions(options)
             }
-            bettingQueue.add(new BettingDecision(decision._player))
+            if (decision._player.status() == PlayerStatus.FOLD || decision._player.status() == PlayerStatus.ALL_IN) {
+                // dont return to queue
+            } else {
+                if(decision._selected.class == NoAction.class)
+                    continue;
+                decision.setOptions(new ArrayList<BettingAction>([new NoAction(_pot, decision._player)]))
+                decision._selected = null
+                bettingQueue.add(decision)
+            }
+        }
+        println("stacks at end of round")
+        for (Player p : _players) {
+            println("" + p + " " + p.getStack())
+        }
+        println("\nplayers left in pot")
+        for (Player p : _pot._activeInPot) {
+            println(p )
         }
     }
     void setUp() {
@@ -78,7 +100,7 @@ class BettingDecisionTest extends GroovyTestCase {
                 new Player("SB", 3001, new InternalPlayerClient([30,0])),
                 new Player("BB", 3002, new InternalPlayerClient([20,10])),
                 new Player("Player 3", 3003, new InternalPlayerClient([20,80])),
-                new Player("Player 4", 3004, new InternalPlayerClient([20,80])),
+                new Player("Player 4", 3004, new InternalPlayerClient([20,80, 0])),
                 new Player("Button", 3000, new InternalPlayerClient([20,0]))
                 ])
         _players[0]._stack = 120
