@@ -2,6 +2,9 @@ package poker._test
 
 import poker.InternalPlayerClient
 import poker.Player
+<<<<<<< HEAD
+=======
+>>>>>>> dd15e612a40c38f03a328440d7ae92211e4b5b62
 import poker.betting.BettingDecision
 import poker.betting.Pot
 import poker.betting.BettingQueueFactory
@@ -37,6 +40,10 @@ class BettingDecisionTest extends GroovyTestCase {
 
         _pot.transfer(TableRules.SB, sb)
         _pot.transfer(TableRules.BB, bb)
+        println("stacks at start of round")
+        for (Player p : _players) {
+            println("" + p + " " + p.getStack())
+        }
         bettingQueue =  new ArrayDeque<BettingDecision>()
 
         bettingQueue.add(new BettingDecision(player3))
@@ -52,6 +59,7 @@ class BettingDecisionTest extends GroovyTestCase {
         bettingQueue.add(decision)
 
         while(!bettingQueue.isEmpty()) {
+<<<<<<< HEAD
             println("Size Queue: " + bettingQueue.size())
             for (BettingDecision bd : bettingQueue) {
                 print(bd._player)
@@ -62,6 +70,8 @@ class BettingDecisionTest extends GroovyTestCase {
 
             println(decision._options)
             decision.execute(bettingQueue)
+=======
+>>>>>>> dd15e612a40c38f03a328440d7ae92211e4b5b62
         }
     }
     void setUp() {
@@ -70,7 +80,7 @@ class BettingDecisionTest extends GroovyTestCase {
                 new Player("SB", 3001, new InternalPlayerClient([30,0])),
                 new Player("BB", 3002, new InternalPlayerClient([20,10])),
                 new Player("Player 3", 3003, new InternalPlayerClient([20,80])),
-                new Player("Player 4", 3004, new InternalPlayerClient([20,80])),
+                new Player("Player 4", 3004, new InternalPlayerClient([20,80, 0])),
                 new Player("Button", 3000, new InternalPlayerClient([20,0]))
                 ])
         _players[0]._stack = 120
