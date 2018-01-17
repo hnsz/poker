@@ -36,18 +36,17 @@ public class AllIn extends BettingAction {
         if (pot.getShare(followingPlayer ) >= pot.getShare(currentPlayer)) {
             return new ArrayList<>();
         }
-<<<<<<< HEAD
         if (pot.toCall(followingPlayer) > 0) {
             actions.add(new Fold(pot, followingPlayer));
-=======
->>>>>>> dd15e612a40c38f03a328440d7ae92211e4b5b62
-            actions.add(new Call(getPot(), followingPlayer));
+        }
+        if(pot.toCall(followingPlayer) < followingPlayer.getStack()) {
+            actions.add(new Call(pot, followingPlayer));
         }
         if (ReRaise.possible(pot, followingPlayer)) {
-            actions.add(new ReRaise(getPot(), followingPlayer));
+            actions.add(new ReRaise(pot, followingPlayer));
         }
 
-        actions.add(new AllIn(getPot(), followingPlayer));
+        actions.add(new AllIn(pot, followingPlayer));
 
         return actions;
     }

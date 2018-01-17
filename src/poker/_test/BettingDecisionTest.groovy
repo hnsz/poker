@@ -1,10 +1,6 @@
 package poker._test
 
-import poker.InternalPlayerClient
 import poker.Player
-<<<<<<< HEAD
-=======
->>>>>>> dd15e612a40c38f03a328440d7ae92211e4b5b62
 import poker.betting.BettingDecision
 import poker.betting.Pot
 import poker.betting.BettingQueueFactory
@@ -31,12 +27,9 @@ class BettingDecisionTest extends GroovyTestCase {
     void testChoice() {
         ArrayDeque<BettingDecision> bettingQueue
         BettingDecision decision
-        Player sb, bb, player3, player4, button
+        Player sb, bb
         sb = _players[0]
         bb = _players[1]
-        player3 = _players[2]
-        player4 = _players[3]
-        button = _players[4]
 
         _pot.transfer(TableRules.SB, sb)
         _pot.transfer(TableRules.BB, bb)
@@ -44,22 +37,10 @@ class BettingDecisionTest extends GroovyTestCase {
         for (Player p : _players) {
             println("" + p + " " + p.getStack())
         }
-        bettingQueue =  new ArrayDeque<BettingDecision>()
+        bettingQueue = BettingQueueFactory.preFlop(_pot, new ArrayDeque<Player>(_players))
 
-        bettingQueue.add(new BettingDecision(player3))
-        bettingQueue.add(new BettingDecision(player4))
-        bettingQueue.add(new BettingDecision(button))
-        bettingQueue.add(new BettingDecision(sb))
-       for (BettingDecision dec : bettingQueue) {
-
-            dec.setOptions(BettingQueueFactory.getPreflop(_pot, dec._player))
-        }
-        decision = new BettingDecision(bb)
-        decision.setOptions(BettingQueueFactory.getBB(_pot, bb))
-        bettingQueue.add(decision)
 
         while(!bettingQueue.isEmpty()) {
-<<<<<<< HEAD
             println("Size Queue: " + bettingQueue.size())
             for (BettingDecision bd : bettingQueue) {
                 print(bd._player)
@@ -68,30 +49,16 @@ class BettingDecisionTest extends GroovyTestCase {
 
             decision = bettingQueue.pop()
 
-            println(decision._options)
+            println("\n" + decision._options)
             decision.execute(bettingQueue)
-=======
->>>>>>> dd15e612a40c38f03a328440d7ae92211e4b5b62
         }
+
     }
     void setUp() {
         super.setUp()
-        _players = new ArrayList<>([
-                new Player("SB", 3001, new InternalPlayerClient([30,0])),
-                new Player("BB", 3002, new InternalPlayerClient([20,10])),
-                new Player("Player 3", 3003, new InternalPlayerClient([20,80])),
-                new Player("Player 4", 3004, new InternalPlayerClient([20,80, 0])),
-                new Player("Button", 3000, new InternalPlayerClient([20,0]))
-                ])
-        _players[0]._stack = 120
-        _players[1]._stack = 50
-        _players[2]._stack = 100
-        _players[3]._stack = 150
-        _players[4]._stack = 180
-
+        _players = TestDataFactory.makePlayers()
         _pot = new Pot(_players)
         _decision = new BettingDecision(_players[2])
-
-
     }
+
 }
