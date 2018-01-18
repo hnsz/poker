@@ -14,7 +14,7 @@ class BettingRoundTest extends GroovyTestCase {
         ArrayDeque<BettingDecision> bettingQueue
         BettingDecision decision
 
-        bettingQueue = BettingQueueFactory.handEntryCalls(_pot, new ArrayDeque<Player>(_players))
+        bettingQueue = BettingQueueFactory.handEntryCallQueue(_pot, new ArrayDeque<Player>(_players))
 
         while(!bettingQueue.isEmpty()) {
             println("Size Queue: " + bettingQueue.size())

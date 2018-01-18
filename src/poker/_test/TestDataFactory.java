@@ -2,20 +2,28 @@ package poker._test;
 
 import poker.InternalPlayerClient;
 import poker.Player;
+import poker.PlayerClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestDataFactory {
-    public static final ArrayList<Player> makePlayers() {
+    public static final ArrayList<InternalPlayerClient> makePlayerClients(Integer[][] clientResponses) {
+        ArrayList<InternalPlayerClient> clients = new ArrayList<>();
+        for (Integer[] responses : clientResponses) {
+            clients.add(new InternalPlayerClient(new ArrayList<>(Arrays.asList(responses))));
+        }
+        return clients;
+    }
+    public static final ArrayList<Player> makePlayers(ArrayList<PlayerClient> clients) {
         ArrayList<Player> players;
 
         players = new ArrayList<>(Arrays.asList(
-                new Player("sb", 3001, new InternalPlayerClient(new ArrayList<>(Arrays.asList(10, 30, 0)))),
-                new Player("bb", 3002, new InternalPlayerClient(new ArrayList<>(Arrays.asList(20, 20, 10)))),
-                new Player("3", 3002, new InternalPlayerClient(new ArrayList<>(Arrays.asList(20, 80)))),
-                new Player("4", 3002, new InternalPlayerClient(new ArrayList<>(Arrays.asList(20, 80, 0)))),
-                new Player("button", 3002, new InternalPlayerClient(new ArrayList<>(Arrays.asList(20, 0))))
+                new Player("sb", 3001, clients.get(0)),
+                new Player("bb", 3002, clients.get(1)),
+                new Player("3", 3002, clients.get(2)),
+                new Player("4", 3002, clients.get(3)),
+                new Player("button", 3002, clients.get(4))
         ));
         players.get(0).recieveChips(120);
         players.get(1).recieveChips(50);

@@ -6,7 +6,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class BettingQueueFactory {
-    public static final ArrayDeque<BettingDecision> handEntryCalls(Pot pot, ArrayDeque<Player> players) {
+    public static final ArrayDeque<BettingDecision> handEntryCallQueue(Pot pot, ArrayDeque<Player> players) {
         ArrayDeque<BettingDecision> queue = new ArrayDeque<>();
         Player sb = players.pop();
         Player bb = players.pop();

@@ -1,10 +1,16 @@
 package poker._test
 
+import org.hamcrest.CoreMatchers
+import org.junit.Assert
+import poker.InternalPlayerClient
 import poker.Player
+import poker.PlayerStatus
 import poker.betting.BettingDecision
+import poker.betting.CallBB
+import poker.betting.CallSB
+import poker.betting.Fold
 import poker.betting.Pot
 import poker.betting.BettingQueueFactory
-import poker.game.TableRules
 
 class BettingDecisionTest extends GroovyTestCase {
     BettingDecision _decision
@@ -25,38 +31,41 @@ class BettingDecisionTest extends GroovyTestCase {
 
 
     void testChoice() {
-        ArrayDeque<BettingDecision> bettingQueue
-        BettingDecision decision
-        Player sb, bb
-        sb = _players[0]
-        bb = _players[1]
+        BettingDecision decisionSb, decisionBb, decisionP3, decisionP4, decisionButton
+        ArrayDeque<BettingDecision> queue
 
-        _pot.transfer(TableRules.SB, sb)
-        _pot.transfer(TableRules.BB, bb)
-        println("stacks at start of round")
-        for (Player p : _players) {
-            println("" + p + " " + p.getStack())
-        }
-        bettingQueue = BettingQueueFactory.preFlop(_pot, new ArrayDeque<Player>(_players))
+        queue = BettingQueueFactory.handEntryCallQueue(_pot, new ArrayDeque<Player>(_players))
+
+        assertEquals(2, queue.size())
+
+        decisionSb = queue.pop()
+        assertEquals(1, decisionSb._options.size())
+        Assert.assertThat(decisionSb._options[0], CoreMatchers.instanceOf(CallSB.class))
+        decisionSb.execute(queue)
+        assertEquals(PlayerStatus.CALL, decisionSb._player._status)
+        Assert.assertThat(decisionSb._selected, CoreMatchers.instanceOf(CallSB.class))
+
+        decisionBb = queue.pop()
+        assertEquals(1, decisionBb._options.size())
+        Assert.assertThat(decisionBb._options[0], CoreMatchers.instanceOf(CallBB.class))
 
 
-        while(!bettingQueue.isEmpty()) {
-            println("Size Queue: " + bettingQueue.size())
-            for (BettingDecision bd : bettingQueue) {
-                print(bd._player)
-            }
-            println()
 
-            decision = bettingQueue.pop()
-
-            println("\n" + decision._options)
-            decision.execute(bettingQueue)
-        }
 
     }
     void setUp() {
         super.setUp()
-        _players = TestDataFactory.makePlayers()
+
+        ArrayList<InternalPlayerClient> clients
+        Integer[][] responseValues
+        responseValues =[   [10, 30, 0],
+                            [20, 20, 10],
+                            [20, 80],
+                            [20, 80, 0],
+                            [20, 0 ]    ]
+
+        clients = TestDataFactory.makePlayerClients(responseValues)
+        _players = TestDataFactory.makePlayers(clients)
         _pot = new Pot(_players)
         _decision = new BettingDecision(_players[2])
     }
