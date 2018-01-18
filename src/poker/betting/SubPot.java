@@ -20,6 +20,9 @@ public class SubPot {
         _upperBound = upperBound;
     }
 
+    public Integer getTotal() {
+        return _total;
+    }
     public Integer upperBound() {
         return _upperBound;
     }

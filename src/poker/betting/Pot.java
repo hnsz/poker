@@ -70,7 +70,13 @@ public class Pot {
         }
         _activeInPot.remove(shareholder);
     }
-
+    public Integer total() {
+        Integer sum = 0;
+        for (SubPot sub : _potList) {
+            sum = sum + sub.getTotal();
+        }
+        return sum;
+    }
     public void insert(Integer amount, Player player) {
         Iterator<SubPot> subPots = _potList.descendingIterator();
         SubPot pot;
