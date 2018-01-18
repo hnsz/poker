@@ -25,11 +25,11 @@ public class TestDataFactory {
                 new Player("4", 3002, clients.get(3)),
                 new Player("button", 3002, clients.get(4))
         ));
-        players.get(0).recieveChips(120);
-        players.get(1).recieveChips(50);
-        players.get(2).recieveChips(100);
-        players.get(3).recieveChips(120);
-        players.get(4).recieveChips(180);
+        players.get(0).receiveChips(120);
+        players.get(1).receiveChips(50);
+        players.get(2).receiveChips(100);
+        players.get(3).receiveChips(120);
+        players.get(4).receiveChips(180);
 
         return players;
     }

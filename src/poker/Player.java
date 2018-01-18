@@ -1,9 +1,12 @@
 package poker;
 
 import poker.betting.BettingDecision;
+import poker.cardDeck.Card;
 import poker.table.Seat;
 import poker.table.Table;
 
+import java.net.CacheRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -13,11 +16,13 @@ public class Player {
     private PlayerStatus _status;
     private PlayerClient _client;
     private Integer _stack = 0;
+    private ArrayList<Card> _holecards;
 
     public Player(String nick, Integer id, PlayerClient client) {
         _client = client;
         _nick = nick;
         _id = id;
+        _holecards = new ArrayList<>();
     }
     public void JoinTable(Table table) {
         _table = table;
@@ -33,8 +38,13 @@ public class Player {
 
         }
     }
-    public void recieveChips(Integer amount) {
+    public void receiveChips(Integer amount) {
         _stack += amount;
+    }
+
+    public void receiveCard(Card card) {
+        assert _holecards.size() <= 2 : "Player can hold 2 cards max.";
+        _holecards.add(card);
     }
 
     public void subtractChips(Integer amount) {

@@ -136,10 +136,10 @@ class PotTest extends GroovyTestCase {
                 new Player("player 3", 203, new InternalPlayerClient()),
                 new Player("player 4", 204, new InternalPlayerClient())
         ])
-        _players[0].recieveChips(100)
-        _players[1].recieveChips(2000)
-        _players[2].recieveChips(30)
-        _players[3].recieveChips(400)
+        _players[0].receiveChips(100)
+        _players[1].receiveChips(2000)
+        _players[2].receiveChips(30)
+        _players[3].receiveChips(400)
         _pot = new Pot(_players)
     }
 }

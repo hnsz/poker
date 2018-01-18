@@ -17,7 +17,6 @@ import poker.betting.BettingQueueFactory
 import java.util.stream.Collector
 
 class BettingDecisionTest extends GroovyTestCase {
-    BettingDecision _decision
     ArrayList<Player> _players
     Pot _pot
 
@@ -272,7 +271,6 @@ class BettingDecisionTest extends GroovyTestCase {
         clients = TestDataFactory.makePlayerClients(responseValues)
         _players = TestDataFactory.makePlayers(clients)
         _pot = new Pot(_players)
-        _decision = new BettingDecision(_players[2])
     }
 
 }

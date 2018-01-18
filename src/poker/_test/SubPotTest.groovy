@@ -1,6 +1,5 @@
 package poker._test
 
-import org.junit.Test
 import poker.InternalPlayerClient
 import poker.Player
 import poker.betting.SubPot
@@ -68,11 +67,11 @@ class SubPotTest extends GroovyTestCase {
                 new Player("player 4", 1004, new InternalPlayerClient()),
                 new Player("player 5", 1005, new InternalPlayerClient())
         ])
-        _players[0].recieveChips(1001)
-        _players[1].recieveChips(1200)
-        _players[2].recieveChips(1149)
-        _players[3].recieveChips(1150)
-        _players[4].recieveChips(1800)
+        _players[0].receiveChips(1001)
+        _players[1].receiveChips(1200)
+        _players[2].receiveChips(1149)
+        _players[3].receiveChips(1150)
+        _players[4].receiveChips(1800)
         _subPot = new SubPot(_players, 1001)
     }
 

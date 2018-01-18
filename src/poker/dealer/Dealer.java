@@ -20,7 +20,7 @@ public class Dealer {
 
     }
 
-    public PlayHand initiateHand(ArrayList<Player> players) {
+    public static PlayHand initiateHand(ArrayList<Player> players) {
         ArrayList<Player> ordered;
         PlayHand hand;
 
@@ -30,7 +30,7 @@ public class Dealer {
         rotateButton(players);
         ordered = reorder(players);
 
-        hand = new PlayHand(this, ordered);
+        hand = new PlayHand( ordered);
 
         return hand;
     }

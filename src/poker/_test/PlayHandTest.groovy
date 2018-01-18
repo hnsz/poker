@@ -1,25 +1,24 @@
 package poker._test
 
-import poker.dealer.Dealer
+import poker.betting.Pot
 import poker.InternalPlayerClient
 import poker.Player
 import poker.game.PlayHand
-import poker.table.Table
-import poker.table.TableRules
 
 class PlayHandTest extends GroovyTestCase {
     private ArrayList<Player> _players
+    private Pot _pot;
 
-    void testConstructor() {
-        PlayHand hand =  new PlayHand(new Dealer(new Table(new TableRules())), _players);
-        assertEquals(hand._players,_players)
-        ArrayList<Player> list = new ArrayList<>(hand._players)
 
-    }
     void testStart() {
     }
 
     void testBettingRounds() {
+        PlayHand hand = new PlayHand(_players)
+        hand.start()
+        hand.rounds()
+
+
     }
 
     void testShowdown() {
@@ -32,11 +31,16 @@ class PlayHandTest extends GroovyTestCase {
     }
     void setUp() {
         super.setUp()
-        _players = new ArrayList<>([
-                new Player("player 1", 201, new InternalPlayerClient()),
-                new Player("player 2", 202, new InternalPlayerClient()),
-                new Player("player 3", 203, new InternalPlayerClient()),
-                new Player("player 4", 204, new InternalPlayerClient())
-        ])
+        ArrayList<InternalPlayerClient> clients
+        Integer[][] responseValues
+        responseValues =[   [10, 30, 0], //sb
+                            [20, 20, 10],//bb
+                            [20, 80],    //p3
+                            [20, 80, 0], //p4
+                            [20, 0 ]    ]//button
+
+        clients = TestDataFactory.makePlayerClients(responseValues)
+        _players = TestDataFactory.makePlayers(clients)
+        _pot = new Pot(_players)
     }
 }

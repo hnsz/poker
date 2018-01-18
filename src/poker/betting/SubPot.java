@@ -5,7 +5,6 @@ import poker.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class SubPot {
     private HashMap<Player,Integer> _shareholders;
@@ -67,7 +66,7 @@ public class SubPot {
 
         List<Player> shareholders = getShareholders();
         for (Player p : shareholders) {
-            p.recieveChips(_total/shareholders.size());
+            p.receiveChips(_total/shareholders.size());
         }
         _total = 0;
     }
