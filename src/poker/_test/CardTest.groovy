@@ -13,10 +13,10 @@ class CardTest extends GroovyTestCase {
         Card card3 = new Card(Rank.SEVEN, Suit.DIAMONDS);
         Card card4 = new Card(Rank.JACK, Suit.CLUBS);
 
-        assertToString(card1,"ACE of SPADES");
-        assertToString(card2,"TWO of HEARTS");
-        assertToString(card3,"SEVEN of DIAMONDS");
-        assertToString(card4,"JACK of CLUBS");
+        assertToString(card1,"A\u2660");
+        assertToString(card2,"2\u2665");
+        assertToString(card3,"7\u2666");
+        assertToString(card4,"J\u2663");
     }
 
     void testCompareble() {

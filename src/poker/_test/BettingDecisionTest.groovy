@@ -9,19 +9,16 @@ import poker.betting.BettingAction
 import poker.betting.BettingDecision
 import poker.betting.CallBB
 import poker.betting.CallSB
-import poker.betting.Fold
 import poker.betting.NoAction
 import poker.betting.Pot
 import poker.betting.BettingQueueFactory
 
-import java.util.stream.Collector
 
 class BettingDecisionTest extends GroovyTestCase {
     ArrayList<Player> _players
     Pot _pot
 
     void tearDown() {
-        _decision = null
     }
 
     void testBetting() {

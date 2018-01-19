@@ -20,11 +20,10 @@ public class Game {
 
         players = _dealer.draftPlayersForNextHand(_players);
         playHand = _dealer.initiateHand(players);
-        playHand.start();
-        playHand.bettingRounds();
+        playHand.handEntryCallRound();
+
         playHand.showdown();
         playHand.payout();
-        playHand.end();
     }
 
 

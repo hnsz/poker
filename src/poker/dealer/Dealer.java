@@ -1,5 +1,6 @@
 package poker.dealer;
 
+import poker.Board;
 import poker.Player;
 import poker.PlayerStatus;
 import poker.game.PlayHand;
@@ -20,7 +21,7 @@ public class Dealer {
 
     }
 
-    public static PlayHand initiateHand(ArrayList<Player> players) {
+    public PlayHand initiateHand(ArrayList<Player> players) {
         ArrayList<Player> ordered;
         PlayHand hand;
 
@@ -30,7 +31,7 @@ public class Dealer {
         rotateButton(players);
         ordered = reorder(players);
 
-        hand = new PlayHand( ordered);
+        hand = new PlayHand(ordered, new Board());
 
         return hand;
     }

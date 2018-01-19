@@ -16,16 +16,16 @@ public class DealingRound {
         }
     }
 
-    public void flop(Deck deck, Board board) {
+    public static void flop(Deck deck, Board board) {
         board.place(deck.deal());
         board.place(deck.deal());
         board.place(deck.deal());
     }
-    public void river(Deck deck, Board board) {
+    public static void river(Deck deck, Board board) {
         board.place(deck.deal());
     }
 
-    public void turn(Deck deck, Board board) {
+    public static void turn(Deck deck, Board board) {
         board.place(deck.deal());
     }
 }

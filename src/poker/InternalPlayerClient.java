@@ -22,6 +22,8 @@ public class InternalPlayerClient implements PlayerClient {
         response = _responseList.pop();
 
         decision.select(response);
+        System.out.println(decision.getOptions());
+        System.out.println(decision.getSelected());
         decision.getSelected().setAmount(response);
     }
 }

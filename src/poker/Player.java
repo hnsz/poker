@@ -47,6 +47,11 @@ public class Player {
         _holecards.add(card);
     }
 
+    public void removeCards() {
+        _holecards.clear();
+        _holecards = new ArrayList<>();
+    }
+
     public void subtractChips(Integer amount) {
         _stack -= amount;
     }

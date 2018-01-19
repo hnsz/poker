@@ -23,7 +23,7 @@ public class Card implements Comparable<Card> {
 
     @Override
     public String toString() {
-        return _rank + " of " + _suit;
+        return "" + _rank + _suit;
     }
 
 
