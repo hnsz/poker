@@ -1,6 +1,7 @@
 package poker.game;
 
 import poker.Board;
+import poker.PlayerStatus;
 import poker.betting.BettingDecision;
 import poker.betting.BettingQueueFactory;
 import poker.betting.Pot;
@@ -40,23 +41,57 @@ public class PlayHand {
     }
 
     public void flop() {
-        DealingRound.flop(_deck, _board);
-        bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players)));
+        ArrayList<Player> playersInPot, bettingPlayers;
+
+        playersInPot = _pot.getShareHolders();
+        if(playersInPot.size() > 1) {
+            DealingRound.flop(_deck, _board);
+        }
+
+        bettingPlayers = new ArrayList<>(playersInPot);
+        bettingPlayers.removeIf(player -> (player.status() == PlayerStatus.ALL_IN));
+
+        if (bettingPlayers.size() > 1) {
+            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<>(_players)));
+        }
     }
     public void turn() {
-        DealingRound.turn(_deck, _board);
-        bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players)));
+        ArrayList<Player> playersInPot, bettingPlayers;
+
+        playersInPot = _pot.getShareHolders();
+        if(playersInPot.size() > 1) {
+            DealingRound.turn(_deck, _board);
+        }
+
+        bettingPlayers = new ArrayList<>(playersInPot);
+        bettingPlayers.removeIf(player -> (player.status() == PlayerStatus.ALL_IN));
+
+        if (bettingPlayers.size() > 1) {
+            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players)));
+        }
     }
     public void river() {
-        DealingRound.river(_deck, _board);
-        bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players)));
+        ArrayList<Player> playersInPot, bettingPlayers;
+
+        playersInPot = _pot.getShareHolders();
+        if(playersInPot.size() > 1) {
+            DealingRound.river(_deck, _board);
+        }
+
+        bettingPlayers = new ArrayList<>(playersInPot);
+        bettingPlayers.removeIf(player -> (player.status() == PlayerStatus.ALL_IN));
+
+        if (bettingPlayers.size() > 1) {
+            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players)));
+        }
     }
 
     public void showdown() {
-
+        // each player show if:
+        // all in, call, bet, raise, reraise
     }
     public void payout() {
-
+        _pot.payout();
     }
     private void bettingRound(ArrayDeque<BettingDecision> decisionQueue) {
         BettingDecision bettingDecision;

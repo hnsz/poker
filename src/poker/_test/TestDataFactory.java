@@ -6,12 +6,13 @@ import poker.PlayerClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TestDataFactory {
-    public static final ArrayList<InternalPlayerClient> makePlayerClients(Integer[][] clientResponses) {
+    public static final ArrayList<InternalPlayerClient> makePlayerClients(List<List<Integer>> clientResponses) {
         ArrayList<InternalPlayerClient> clients = new ArrayList<>();
-        for (Integer[] responses : clientResponses) {
-            clients.add(new InternalPlayerClient(new ArrayList<>(Arrays.asList(responses))));
+        for (List responses : clientResponses) {
+            clients.add(new InternalPlayerClient(new ArrayList<>(responses)));
         }
         return clients;
     }

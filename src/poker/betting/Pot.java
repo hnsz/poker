@@ -28,6 +28,14 @@ public class Pot {
         return sum;
     }
 
+    public ArrayList<Player> getShareHolders() {
+        HashSet<Player> shareholders = new HashSet<>();
+        for (SubPot pot : _potList) {
+            shareholders.addAll(pot.getShareholders());
+        }
+        return new ArrayList<>(shareholders);
+    }
+
     public Integer toCall(Player player) {
         if (getShare(player) < _highestShare) {
             return _highestShare - getShare(player);

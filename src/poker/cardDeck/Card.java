@@ -1,5 +1,7 @@
 package poker.cardDeck;
 
+import groovy.json.JsonOutput;
+
 /**
  * Represents one of the 52 poker cards,
  * Has a rank and a suit
@@ -20,12 +22,14 @@ public class Card implements Comparable<Card> {
         _rank = rank;
         _suit = suit;
     }
-
     @Override
     public String toString() {
         return "" + _rank + _suit;
     }
 
+    public Integer toInteger() {
+        return _rank.toInteger();
+    }
 
     /**
      * @param card

@@ -5,7 +5,6 @@ import poker.cardDeck.Card;
 import poker.table.Seat;
 import poker.table.Table;
 
-import java.net.CacheRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +57,6 @@ public class Player {
 
     public Player setStatus(PlayerStatus status) {
         _status = status;
-        System.out.println("Player(" +_nick + ") Status Change to:" + status);
         return this;
     }
 
@@ -75,6 +73,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player(" + _nick + ')';
+        return _nick;
     }
 }
