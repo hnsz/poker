@@ -14,7 +14,7 @@ import poker.betting.Fold
 import poker.betting.Pot
 import poker.betting.Raise
 import poker.betting.ReRaise
-import poker.game.TableRules
+import poker.table.TableRules
 
 class BettingActionTest extends GroovyTestCase {
     ArrayList<Player> _players

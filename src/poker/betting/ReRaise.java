@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ReRaise extends Raise {
     ReRaise(Pot pot, Player player) {
         super(pot, player);
-        super.setString("Re-raise(" + super.getMinimum() +"-" + super.getMaximum()+")");
+        super.setName("Re-raise");
     }
     @Override
     public void execute() {

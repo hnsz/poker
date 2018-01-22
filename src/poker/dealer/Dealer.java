@@ -17,6 +17,9 @@ public class Dealer {
         _table = table;
         _rotation = new ArrayDeque<>(_table.getAllSeats());
     }
+    public Player buttonPlayer() {
+        return _rotation.peek().getPlayer();
+    }
     public void giveBetOption(Player player) {
 
     }
@@ -65,6 +68,7 @@ public class Dealer {
         _rotation.add(_rotation.pop());
         return _rotation.peek();
     }
+
     private ArrayList<Player> reorder(ArrayList<Player> inHand) {
         ArrayList<Player> ordered;
         Player onButton;

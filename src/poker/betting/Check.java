@@ -3,13 +3,11 @@ package poker.betting;
 import poker.Player;
 import poker.PlayerStatus;
 
-import java.util.ArrayList;
-
 public class Check extends BettingAction {
 
     Check(Pot pot, Player player) {
         super(pot, player);
-        super.setString("Check");
+        super.setName("Check");
     }
 
     @Override

@@ -2,7 +2,7 @@ package poker.betting;
 
 import poker.Player;
 import poker.PlayerStatus;
-import poker.game.TableRules;
+import poker.table.TableRules;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class Bet extends BettingAction {
         _minimum = pot.toCall(player) + TableRules.BB;
         _maximum = player.getStack();
         assert possible(pot, player): "Check possible() method before instantiating this class.";
-        super.setString("Bet(" + _minimum +"-"+ _maximum+")");
+        super.setName("Bet");
     }
 
     public static boolean possible(Pot pot, Player player) {

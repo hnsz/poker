@@ -19,10 +19,16 @@ public class PlayHand {
     private Pot _pot;
     private Deck _deck;
     private Board _board;
+    private History _history;
+    private String id = "22";
 
 
-    public PlayHand(ArrayList<Player> players, Board board) {
+    public PlayHand(ArrayList<Player> players, Board board, History history) {
         _players = new ArrayList<>(Collections.unmodifiableList(players));
+        _history = history;
+        for (Player p : _players) {
+            _history.handPlayerEnter(22, p);
+        }
         _pot = new Pot(_players);
         _deck = new Deck();
         _board = board;

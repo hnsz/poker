@@ -4,9 +4,16 @@ import poker.Player;
 
 public class Seat {
     private Player _player;
+    private Integer _number;
 
 
+    Seat(Integer number) {
+        _number = number;
+    }
 
+    public Integer getNumber() {
+        return _number;
+    }
     public void take(Player player) {
         _player = player;
     }

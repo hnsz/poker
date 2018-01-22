@@ -23,6 +23,15 @@ public class Player {
         _id = id;
         _holecards = new ArrayList<>();
     }
+
+    public String nick() {
+        return _nick;
+    }
+
+    public ArrayList<Card> getHolecards() {
+        return _holecards;
+    }
+
     public void JoinTable(Table table) {
         _table = table;
     }

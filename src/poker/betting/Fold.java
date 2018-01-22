@@ -9,7 +9,7 @@ public class Fold extends BettingAction {
 
     Fold(Pot pot, Player player) {
         super(pot, player);
-        super.setString("Fold");
+        super.setName("Fold");
     }
 
     @Override

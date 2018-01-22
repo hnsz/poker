@@ -9,7 +9,7 @@ public class Game {
     private ArrayList<Player> _players = new ArrayList<>();
     private Dealer _dealer;
 
-    public Game(Dealer dealer) {
+    public Game(Dealer dealer, History history) {
         _dealer = dealer;
     }
 

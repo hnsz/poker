@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class NoAction extends BettingAction {
     NoAction(Pot pot, Player player) {
         super(pot, player);
-        super.setString("No Action");
+        super.setName("No Action");
     }
 
     @Override

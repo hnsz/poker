@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class BettingAction {
     private Pot _pot;
     private Player _player;
-    private String _string;
+    private String _name;
 
     BettingAction(Pot pot, Player player) {
         _pot = pot;
@@ -27,7 +27,8 @@ public abstract class BettingAction {
         return new ArrayList<>();
     }
     public abstract boolean matchesConstraints( Integer response);
-    protected void setString(String s) {_string = s;}
+    protected void setName(String name) {
+        _name = name;}
 
     public void setAmount(Integer amount) {
         // do nothing
@@ -42,6 +43,6 @@ public abstract class BettingAction {
     }
     @Override
     public String toString() {
-        return _string;
+        return _name;
     }
 }

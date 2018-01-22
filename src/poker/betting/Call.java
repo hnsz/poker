@@ -12,7 +12,7 @@ public class Call extends BettingAction {
         super(pot, player);
         assert possible(pot,player): "Call is not a possible action, use possible() method before instantiating.";
         _amount = pot.toCall(player);
-        super.setString("Call(" + getAmount() +")");
+        super.setName("Call");
     }
 
     public static boolean possible(Pot pot, Player player) {

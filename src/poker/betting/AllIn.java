@@ -11,7 +11,7 @@ public class AllIn extends BettingAction {
     AllIn(Pot pot, Player player) {
         super(pot, player);
         _amount = player.getStack();
-        super.setString("All-In(" +getAmount()+")");
+        super.setName("All-In");
     }
     public static boolean possible(Pot pot, Player player) {
         return true;
