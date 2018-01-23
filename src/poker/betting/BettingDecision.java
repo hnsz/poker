@@ -2,6 +2,7 @@ package poker.betting;
 
 
 import poker.Player;
+import poker.game.History;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -10,9 +11,11 @@ public class BettingDecision {
     private ArrayList<BettingAction> _options = new ArrayList<>();
     private BettingAction _selected;
     private Player _player;
+    private History _history;
 
-    public BettingDecision(Player player) {
+    public BettingDecision(Player player, History history) {
         _player = player;
+        _history = history;
     }
 
     public void setOptions(ArrayList<BettingAction> options) {
@@ -28,6 +31,7 @@ public class BettingDecision {
         for (BettingAction option : _options) {
             if (option.matchesConstraints(response)) {
                 _selected = option;
+                _selected.setAmount(response);
                 break;
             }
         }
@@ -58,6 +62,7 @@ public class BettingDecision {
             select(0);
         }
         _selected.execute();
+        _history.bettingDecision(_player, _selected);
 
         for (BettingDecision dec : bettingQueue) {
             ArrayList<BettingAction> options = _selected.followUps(dec._player);
@@ -67,7 +72,7 @@ public class BettingDecision {
         }
         requeuingOptions = _selected.requeuingOptions();
         if (!requeuingOptions.isEmpty()) {
-            nextDecision =  new BettingDecision(_player);
+            nextDecision =  new BettingDecision(_player, _history);
             nextDecision.setOptions(requeuingOptions);
             bettingQueue.add(nextDecision);
         }

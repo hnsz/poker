@@ -6,7 +6,9 @@ public class HistoryStringEntry extends HistoryEntry{
     HistoryStringEntry(String str) {
         _str = str;
     }
-    public String writeString() {
+
+    @Override
+    public String toString() {
         return _str;
     }
 }

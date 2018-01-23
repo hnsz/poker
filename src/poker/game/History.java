@@ -3,6 +3,7 @@ package poker.game;
 import poker.Player;
 import poker.betting.BettingAction;
 import poker.betting.Pot;
+import poker.betting.SubPot;
 import poker.cardDeck.Card;
 import poker.dealer.Dealer;
 import poker.table.Seat;
@@ -21,9 +22,10 @@ public class History {
 
     @Override
     public String toString() {
-        String out =  "History for table '" + _tableId + '\n';
+        String out =  "History for table #" + _tableId + '\n';
         while (!_events.isEmpty()) {
-            out.concat(_events.pop().writeString()  + '\n');
+            HistoryEntry entry = _events.pop();
+            out += entry + "\n";
         }
         return out;
     }
@@ -34,17 +36,16 @@ public class History {
     public void tableLeave(Player player) {
         _events.add(new HistoryStringEntry(player.nick() + " leaves table."));
     }
-    public void dealerRotate(Dealer dealer) {
-        _events.add(new HistoryStringEntry("Button rotates to " + dealer.buttonPlayer().nick()));
+    public void dealerRotate(Player buttonPlayer) {
+        _events.add(new HistoryStringEntry("DealerButton rotates to " + buttonPlayer.nick()));
     }
 
     public void seatTake(Seat seat, Player player) {
-        _events.add(new HistoryStringEntry(player.nick() + " takes seat " + seat.getNumber());
+        _events.add(new HistoryStringEntry(player.nick() + " takes seat " + seat.getNumber()));
     }
 
     public void seatLeave(Seat seat, Player player) {
         _events.add(new HistoryStringEntry(player.nick() + " stands up from seat " + seat.getNumber()));
-
     }
 
     public void gameStart(Integer id) {
@@ -57,40 +58,48 @@ public class History {
     }
 
     public void gamePlayerJoin(Integer id, Player player) {
-        _events.add(new HistoryStringEntry(player.nick() + " joins game " + id) );
+        _events.add(new HistoryStringEntry(player.nick() + " joins game #" + id) );
     }
 
     public void gamePlayerLeave(Integer id, Player player) {
-        _events.add(new HistoryStringEntry(player.nick() + " leaves game " + id));
+        _events.add(new HistoryStringEntry(player.nick() + " leaves game #" + id));
     }
 
-    public void handStart(Integer id) {
-        _events.add(new HistoryStringEntry("Hand " + id + " starts."));
+    public void handStart(String id) {
+        _events.add(new HistoryStringEntry("Hand #" + id + " starts.\n\n"));
     }
 
-    public void handEnd(Integer id) {
-        _events.add(new HistoryStringEntry("Hand " + id + " ends."));
+    public void handEnd(String id) {
+        _events.add(new HistoryStringEntry("Hand #" + id + " ends."));
     }
 
-    public void handPlayerEnter(Integer id, Player player) {
-        _events.add(new HistoryStringEntry(player.nick() + " enters hand " + id) );
+    public void handPlayerEnter(String id, Player player) {
+        _events.add(new HistoryStringEntry(player.nick() + " enters Hand #" + id) );
     }
-    public void bettingDecision(Player player, BettingAction action, Integer amount) {
-        _events.add(new HistoryStringEntry(player.nick() + ": " + action + (amount>0?"":" amount: " + amount) ));
+
+    public void bettingDecision(Player player, BettingAction action) {
+        Integer amount = action.getAmount();
+        _events.add(new HistoryStringEntry(player.nick() + " " + action + (amount == 0 ? "" : " $" +amount)));
 
     }
     public void dealingRound(String round, ArrayList<Card> cards) {
-        _events.add(new HistoryStringEntry(round + " cards dealt on the board " + cards));
+        _events.add(new HistoryStringEntry(round + cards));
+    }
+    public void dealingRound(String round, Card card) {
+        _events.add(new HistoryStringEntry(round + " card dealt on the board " + card));
     }
 
-    public void playerShowdown(Player player) {
-        _events.add(new HistoryStringEntry(player + " shows " + player.getHolecards()));
+    public void playerShowdown(Player player, ArrayList<Card> cards) {
+        _events.add(new HistoryStringEntry(player + " shows " + cards));
     }
 
     public void playerHand(Player player) {
         _events.add(new HistoryStringEntry(player + " had hand x with y kicker"));
     }
 
+    public void announceWinner(Player player, SubPot sub) {
+        _events.add(new HistoryStringEntry(player + " wins pot "+ sub.getTotal() +", with hand y"));
+    }
     public void playerWinner(Player player, Pot pot) {
         _events.add(new HistoryStringEntry(player + "wins x pot"));
     }

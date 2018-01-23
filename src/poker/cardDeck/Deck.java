@@ -1,5 +1,8 @@
 package poker.cardDeck;
 
+import org.testng.internal.collections.Pair;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -22,6 +25,11 @@ public class Deck {
             }
         }
         Collections.shuffle(cards);
+    }
+    public Deck(ArrayList<Pair<Rank,Suit>> input) {
+        for (Pair<Rank,Suit> tuple : input) {
+            cards.push(new Card(tuple.first(), tuple.second()));
+        }
     }
 
     public Card deal() {

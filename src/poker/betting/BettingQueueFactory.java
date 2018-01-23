@@ -1,17 +1,18 @@
 package poker.betting;
 
 import poker.Player;
+import poker.game.History;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class BettingQueueFactory {
-    public static final ArrayDeque<BettingDecision> handEntryCallQueue(Pot pot, ArrayDeque<Player> players) {
+    public static final ArrayDeque<BettingDecision> handEntryCallQueue(Pot pot, ArrayDeque<Player> players, History history) {
         ArrayDeque<BettingDecision> queue = new ArrayDeque<>();
         Player sb = players.pop();
         Player bb = players.pop();
-        BettingDecision sbCall = new BettingDecision(sb);
-        BettingDecision bbCall = new BettingDecision(bb);
+        BettingDecision sbCall = new BettingDecision(sb, history);
+        BettingDecision bbCall = new BettingDecision(bb, history);
         ArrayList<BettingAction> optionsSB = new ArrayList<>();
         ArrayList<BettingAction> optionsBB = new ArrayList<>();
         optionsSB.add(new CallSB(pot,sb));
@@ -23,20 +24,20 @@ public class BettingQueueFactory {
 
         return queue;
     }
-    public static final ArrayDeque<BettingDecision> preFlop(Pot pot, ArrayDeque<Player> players) {
+    public static final ArrayDeque<BettingDecision> preFlop(Pot pot, ArrayDeque<Player> players, History history) {
         ArrayDeque<BettingDecision> queue = new ArrayDeque<>();
 
         Player sb = players.pop();
         Player bb = players.pop();
         players.add(sb);
 
-        BettingDecision bbDecision =  new BettingDecision(bb);
+        BettingDecision bbDecision =  new BettingDecision(bb, history);
         ArrayList<BettingAction> bbOptions = new ArrayList<>();
         bbDecision.setOptions(bbOptions);
 
         while (!players.isEmpty()) {
             Player p = players.pop();
-            BettingDecision decision = new BettingDecision(p);
+            BettingDecision decision = new BettingDecision(p, history);
             ArrayList<BettingAction> options = new ArrayList<>();
             options.add(new Fold(pot, p));
             options.add(new Call(pot, p));
@@ -52,12 +53,12 @@ public class BettingQueueFactory {
         return queue;
     }
 
-    public static final ArrayDeque<BettingDecision> postFlop(Pot pot, ArrayDeque<Player> players) {
+    public static final ArrayDeque<BettingDecision> postFlop(Pot pot, ArrayDeque<Player> players, History history) {
         ArrayDeque<BettingDecision> queue = new ArrayDeque<>();
 
         while (!players.isEmpty()) {
             Player p = players.pop();
-            BettingDecision decision = new BettingDecision(p);
+            BettingDecision decision = new BettingDecision(p, history);
             ArrayList<BettingAction> options = new ArrayList<>();
             options.add(new Check(pot, p));
             options.add(new Bet(pot, p));

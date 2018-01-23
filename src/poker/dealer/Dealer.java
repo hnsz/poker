@@ -3,6 +3,7 @@ package poker.dealer;
 import poker.Board;
 import poker.Player;
 import poker.PlayerStatus;
+import poker.game.History;
 import poker.game.PlayHand;
 import poker.table.Seat;
 import poker.table.Table;
@@ -34,7 +35,7 @@ public class Dealer {
         rotateButton(players);
         ordered = reorder(players);
 
-        hand = new PlayHand(ordered, new Board());
+        hand = new PlayHand(ordered, new Board(), new History("BAD NOTHING"));// OMG BAD
 
         return hand;
     }

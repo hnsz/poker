@@ -5,6 +5,7 @@ import poker.PlayerStatus;
 import poker.betting.BettingDecision;
 import poker.betting.BettingQueueFactory;
 import poker.betting.Pot;
+import poker.cardDeck.Card;
 import poker.cardDeck.Deck;
 import poker.Player;
 import poker.dealer.DealingRound;
@@ -20,15 +21,16 @@ public class PlayHand {
     private Deck _deck;
     private Board _board;
     private History _history;
-    private String id = "22";
+    private String _id = "22";
 
 
     public PlayHand(ArrayList<Player> players, Board board, History history) {
         _players = new ArrayList<>(Collections.unmodifiableList(players));
         _history = history;
         for (Player p : _players) {
-            _history.handPlayerEnter(22, p);
+            _history.handPlayerEnter(_id, p);
         }
+        _history.handStart(_id);
         _pot = new Pot(_players);
         _deck = new Deck();
         _board = board;
@@ -39,11 +41,11 @@ public class PlayHand {
     }
 
     public void handEntryCallRound() {
-        bettingRound(BettingQueueFactory.handEntryCallQueue(_pot, new ArrayDeque<Player>(_players)));
+        bettingRound(BettingQueueFactory.handEntryCallQueue(_pot, new ArrayDeque<Player>(_players), _history));
     }
     public void preFlop() {
         DealingRound.holecards(_deck, new ArrayList<Player>(_players));
-        bettingRound(BettingQueueFactory.preFlop(_pot, new ArrayDeque<Player>(_players)));
+        bettingRound(BettingQueueFactory.preFlop(_pot, new ArrayDeque<Player>(_players), _history));
     }
 
     public void flop() {
@@ -53,12 +55,12 @@ public class PlayHand {
         if(playersInPot.size() > 1) {
             DealingRound.flop(_deck, _board);
         }
-
+        _history.dealingRound("Flop, the board is ", _board.getBoardCards());
         bettingPlayers = new ArrayList<>(playersInPot);
         bettingPlayers.removeIf(player -> (player.status() == PlayerStatus.ALL_IN));
 
         if (bettingPlayers.size() > 1) {
-            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<>(_players)));
+            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<>(_players), _history));
         }
     }
     public void turn() {
@@ -68,12 +70,13 @@ public class PlayHand {
         if(playersInPot.size() > 1) {
             DealingRound.turn(_deck, _board);
         }
+        _history.dealingRound("Turn, the board is ", _board.getBoardCards());
 
         bettingPlayers = new ArrayList<>(playersInPot);
         bettingPlayers.removeIf(player -> (player.status() == PlayerStatus.ALL_IN));
 
         if (bettingPlayers.size() > 1) {
-            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players)));
+            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players), _history));
         }
     }
     public void river() {
@@ -83,18 +86,24 @@ public class PlayHand {
         if(playersInPot.size() > 1) {
             DealingRound.river(_deck, _board);
         }
+        _history.dealingRound("River, the board is ", _board.getBoardCards());
 
         bettingPlayers = new ArrayList<>(playersInPot);
         bettingPlayers.removeIf(player -> (player.status() == PlayerStatus.ALL_IN));
 
         if (bettingPlayers.size() > 1) {
-            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players)));
+            bettingRound(BettingQueueFactory.postFlop(_pot, new ArrayDeque<Player>(_players), _history));
         }
     }
 
     public void showdown() {
         // each player show if:
         // all in, call, bet, raise, reraise
+        ArrayList<Player> players = _pot.getShareHolders();
+        for (Player player : players) {
+            ArrayList<Card> cards = player.getHolecards();
+            _history.playerShowdown(player, cards);
+        }
     }
     public void payout() {
         _pot.payout();

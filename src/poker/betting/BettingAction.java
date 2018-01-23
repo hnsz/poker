@@ -1,6 +1,7 @@
 package poker.betting;
 
 import poker.Player;
+import poker.game.History;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public abstract class BettingAction {
     private Pot _pot;
     private Player _player;
     private String _name;
+    private Integer _amount;
 
     BettingAction(Pot pot, Player player) {
         _pot = pot;
@@ -28,10 +30,14 @@ public abstract class BettingAction {
     }
     public abstract boolean matchesConstraints( Integer response);
     protected void setName(String name) {
-        _name = name;}
+        _name = name;
+    }
 
     public void setAmount(Integer amount) {
-        // do nothing
+        _amount = amount;
+    }
+    public Integer getAmount() {
+        return _amount;
     }
     public ArrayList<BettingAction> requeuingOptions() {
         ArrayList<BettingAction> actions = new ArrayList<>();

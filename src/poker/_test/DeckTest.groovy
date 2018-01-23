@@ -1,26 +1,38 @@
 package poker._test
 
-import groovy.json.JsonBuilder
+import org.testng.internal.collections.Pair
 import poker.cardDeck.Card
 import poker.cardDeck.Deck
+import poker.cardDeck.Rank
+import poker.cardDeck.Suit
 
 
 class DeckTest extends GroovyTestCase {
     void testDeal() {
-        HashSet<Card> cards = new HashSet<Card>();
-        Deck deck = new Deck();
+        HashSet<Card> cards = new HashSet<Card>()
+        Deck deck = new Deck()
         while (deck.notEmpty()) {
-            cards.add(deck.deal());
+            cards.add(deck.deal())
         }
 
-        assertEquals(52, cards.size());
+        assertEquals(52, cards.size())
     }
 
-    void testJson() {
-        Deck deck = new Deck()
-        JsonBuilder json = new JsonBuilder(deck.cards[0].toString())
-        println(json)
-        De
+    void testAltConstruct() {
+        ArrayList<Pair<Rank,Suit>> input
+
+
+        input = [[Rank.TWO, Suit.CLUBS ]as Pair, [Rank.THREE, Suit.CLUBS] as Pair]
+
+        Deck deck = new Deck(input)
+
+        println(deck.cards)
+    }
+
+    void testCreateDeckOutput() {
+        def deck = new Deck(staticDeckData())
+        println(deck.cards)
 
     }
+
 }
