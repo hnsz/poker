@@ -30,6 +30,25 @@ public class Card implements Comparable<Card> {
     public Integer toInteger() {
         return _rank.toInteger();
     }
+    public Suit getSuit() {
+        return _suit;
+    }
+
+    public boolean connected(Card rhs) {
+        if (rhs._rank == null) {
+            return false;
+        }
+        return Math.abs(_rank.toInteger() - rhs._rank.toInteger()) == 1;
+    }
+    public Integer distance(Card rhs) {
+        if (rhs._rank == null) {
+            return -1;
+        }
+        return Math.abs(_rank.toInteger() - rhs._rank.toInteger());
+    }
+    public Rank getRank() {
+        return _rank;
+    }
 
     /**
      * @param card
