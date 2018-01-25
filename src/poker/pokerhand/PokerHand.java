@@ -5,7 +5,7 @@ import poker.cardDeck.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class PokerHand {
+public abstract class PokerHand implements Comparable<PokerHand> {
 
     private CardSorter  _sorter;
     private ArrayList<Card> _hand;
@@ -47,5 +47,10 @@ abstract class PokerHand {
     @Override
     public String toString() {
         return _name + " " + getCards();
+    }
+
+    @Override
+    public int compareTo(PokerHand pokerHand) {
+        return _value.compareTo(pokerHand._value);
     }
 }

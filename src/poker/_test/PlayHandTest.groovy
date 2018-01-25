@@ -24,6 +24,8 @@ class PlayHandTest extends GroovyTestCase {
     }
 
     void testBettingRounds() {
+        _players.each {p -> println("${p.nick()}\t\tchips:${p.getStack()}")}
+
         PlayHand hand = [_players, _board, _history]
         hand._deck = new Deck(DataFactory.staticDeckData())
         _history.dealerRotate(_players[-1])
@@ -33,10 +35,11 @@ class PlayHandTest extends GroovyTestCase {
         handEntryCallQ = BettingQueueFactory.handEntryCallQueue(hand._pot, new ArrayDeque<Player>(hand._players), _history)
         hand.bettingRound(handEntryCallQ)
 
-        DealingRound.holecards(hand._deck, new ArrayList<Player>(hand._players))
-
-        preFlopQ = BettingQueueFactory.preFlop(hand._pot, new ArrayDeque<Player>(hand._players), _history)
-        hand.bettingRound(preFlopQ)
+//        DealingRound.holecards(hand._deck, new ArrayList<Player>(hand._players))
+//
+//        preFlopQ = BettingQueueFactory.preFlop(hand._pot, new ArrayDeque<Player>(hand._players), _history)
+//        hand.bettingRound(preFlopQ)
+        hand.preFlop()
 
         hand.flop()
         hand.turn()
@@ -44,21 +47,12 @@ class PlayHandTest extends GroovyTestCase {
 
 
         hand.showdown()
-        ArrayList<ArrayList<Player>> winners = [[_players[1]],[_players[2]]]
-        hand._pot.setWinners(winners)
-        for(ArrayList<Player> winner : winners) {
-            Player p = winner[0]
-            for (SubPot sub : hand._pot._potList) {
-                if (sub.getShareholders().contains(p)) {
-                    _history.announceWinner(p, sub)
 
-                }
-            }
-        }
-
+//                _history.announceWinner(p, sub)
         hand.payout()
         println(_history)
         _players.each {p -> println("${p.nick()}\t\tchips:${p.getStack()} \t${p.getHolecards()}")}
+
     }
 
 

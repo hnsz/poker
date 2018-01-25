@@ -1,5 +1,6 @@
 package poker.game;
 
+import org.testng.internal.collections.Pair;
 import poker.Board;
 import poker.PlayerStatus;
 import poker.betting.BettingDecision;
@@ -9,10 +10,14 @@ import poker.cardDeck.Card;
 import poker.cardDeck.Deck;
 import poker.Player;
 import poker.dealer.DealingRound;
+import poker.pokerhand.Calculator;
+import poker.pokerhand.PokerHand;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 
 public class PlayHand {
@@ -44,6 +49,7 @@ public class PlayHand {
         bettingRound(BettingQueueFactory.handEntryCallQueue(_pot, new ArrayDeque<Player>(_players), _history));
     }
     public void preFlop() {
+        _history.dealHoleCards();
         DealingRound.holecards(_deck, new ArrayList<Player>(_players));
         bettingRound(BettingQueueFactory.preFlop(_pot, new ArrayDeque<Player>(_players), _history));
     }
@@ -97,13 +103,44 @@ public class PlayHand {
     }
 
     public void showdown() {
-        // each player show if:
-        // all in, call, bet, raise, reraise
+        _history.showdown();
         ArrayList<Player> players = _pot.getShareHolders();
+        PokerHand pokerHand;
+        Calculator calculator;
+        ArrayList<Pair<Player, PokerHand>> pokerHands = new ArrayList<>();
         for (Player player : players) {
             ArrayList<Card> cards = player.getHolecards();
-            _history.playerShowdown(player, cards);
+            cards.addAll(_board.getBoardCards());
+            calculator= new Calculator(cards);
+            pokerHand = calculator.resolveHand();
+            _history.playerShowdown(player, pokerHand);
+            pokerHands.add(new Pair<>(player, pokerHand));
         }
+        setWinnerOrder(pokerHands);
+    }
+
+    private void setWinnerOrder(ArrayList<Pair<Player,PokerHand>> pokerHands) {
+        pokerHands.sort(Comparator.comparing((p -> p.second().getValue() *-1)));
+        Player player;
+        PokerHand pokerHand;
+        ArrayList<ArrayList<Player>> winnerOrder;
+        ArrayList<Player> nthPlacePlayers;
+        winnerOrder = new ArrayList<>();
+        nthPlacePlayers = new ArrayList<>();
+        Integer handValue = 0;
+
+        for(Pair<Player,PokerHand> tuple: pokerHands) {
+
+            player = tuple.first();
+            pokerHand = tuple.second();
+            if (nthPlacePlayers.isEmpty() || pokerHand.getValue() == handValue) {
+                nthPlacePlayers.add(player);
+            } else {
+                winnerOrder.add(nthPlacePlayers);
+            }
+            handValue = pokerHand.getValue();
+        }
+        _pot.setWinners(winnerOrder);
     }
     public void payout() {
         _pot.payout();

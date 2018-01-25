@@ -6,6 +6,7 @@ import poker.betting.Pot;
 import poker.betting.SubPot;
 import poker.cardDeck.Card;
 import poker.dealer.Dealer;
+import poker.pokerhand.PokerHand;
 import poker.table.Seat;
 
 import java.util.ArrayDeque;
@@ -82,15 +83,20 @@ public class History {
         _events.add(new HistoryStringEntry(player.nick() + " " + action + (amount == 0 ? "" : " $" +amount)));
 
     }
+    public void dealHoleCards() {
+        _events.add(new HistoryStringEntry("Players receive hole cards\n"));
+    }
     public void dealingRound(String round, ArrayList<Card> cards) {
-        _events.add(new HistoryStringEntry(round + cards));
+        _events.add(new HistoryStringEntry(round + cards + "\n"));
     }
     public void dealingRound(String round, Card card) {
         _events.add(new HistoryStringEntry(round + " card dealt on the board " + card));
     }
-
-    public void playerShowdown(Player player, ArrayList<Card> cards) {
-        _events.add(new HistoryStringEntry(player + " shows " + cards));
+    public void showdown() {
+        _events.add(new HistoryStringEntry("Showdown: "));
+    }
+    public void playerShowdown(Player player, PokerHand pokerHand) {
+        _events.add(new HistoryStringEntry(player + " shows " + pokerHand));
     }
 
     public void playerHand(Player player) {
