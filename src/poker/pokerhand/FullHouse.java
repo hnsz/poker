@@ -5,8 +5,8 @@ import poker.cardDeck.Card;
 import java.util.ArrayList;
 
 public class FullHouse extends PokerHand {
-    FullHouse(ArrayList<Card> cards) {
-        super(cards);
+    FullHouse(CardSorter sorter) {
+        super(sorter);
         setName("Full House");
     }
 

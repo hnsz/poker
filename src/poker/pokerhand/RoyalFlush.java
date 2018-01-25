@@ -7,14 +7,13 @@ import java.util.ArrayList;
 
 public class RoyalFlush extends PokerHand {
 
-    RoyalFlush(ArrayList<Card> cards) {
-        super(cards);
+    RoyalFlush(CardSorter sorter) {
+        super(sorter);
         setName("Royal Flush");
     }
 
     public boolean match() {
-        CardSorter sorter = getSorter();
-        for (ArrayList<Card> combo : sorter.sortRankGroupSuit()) {
+        for (ArrayList<Card> combo : getSorter().sortRankGroupSuit()) {
             if (combo.size() >= 5 &&
                     combo.get(0).getRank() == Rank.ACE &&
                     combo.get(4).getRank() == Rank.TEN) {

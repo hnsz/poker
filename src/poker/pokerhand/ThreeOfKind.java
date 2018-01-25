@@ -5,8 +5,8 @@ import poker.cardDeck.Card;
 import java.util.ArrayList;
 
 public class ThreeOfKind extends PokerHand {
-    ThreeOfKind(ArrayList<Card> cards) {
-        super(cards);
+    ThreeOfKind(CardSorter sorter) {
+        super(sorter);
         setName("Set");
     }
 
@@ -23,6 +23,7 @@ public class ThreeOfKind extends PokerHand {
                 }
                 setHand(hand);
                 setValue(0x400000);
+                return true;
             }
         }
         return false;

@@ -4,6 +4,7 @@ import poker.cardDeck.Card
 
 class CardSorter {
     ArrayList<Card> input
+    ArrayList<Card> sortedRank
 
     CardSorter(ArrayList<Card> cards) {
         input = cards

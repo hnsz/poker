@@ -5,8 +5,8 @@ import poker.cardDeck.Card;
 import java.util.ArrayList;
 
 public class Flush extends PokerHand {
-    Flush(ArrayList<Card> cards) {
-        super(cards);
+    Flush(CardSorter sorter) {
+        super(sorter);
         setName("Flush");
     }
 

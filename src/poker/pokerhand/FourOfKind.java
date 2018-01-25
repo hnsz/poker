@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FourOfKind extends PokerHand {
-    FourOfKind(ArrayList<Card> cards) {
-        super(cards);
+    FourOfKind(CardSorter sorter) {
+        super(sorter);
         setName("Four of a Kind");
     }
 

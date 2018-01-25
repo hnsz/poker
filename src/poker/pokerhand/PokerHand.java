@@ -7,19 +7,18 @@ import java.util.List;
 
 abstract class PokerHand {
 
-    private CardSorter sorter;
+    private CardSorter  _sorter;
     private ArrayList<Card> _hand;
     private String _name = "Hand";
     private Integer _value;
 
-    PokerHand(ArrayList<Card> cards) {
-        assert cards.size() <= 7 : "Internal logic only assured for sets of cards with max size 7.";
-        sorter = new CardSorter(cards);
-        match();
+
+    PokerHand(CardSorter sorter) {
+        _sorter = sorter;
     }
 
     public CardSorter getSorter() {
-        return sorter;
+        return _sorter;
     }
 
     public void setName(String name) {

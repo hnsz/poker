@@ -6,15 +6,14 @@ import poker.cardDeck.Rank;
 import java.util.ArrayList;
 
 public class StraightFlush extends PokerHand {
-    StraightFlush(ArrayList<Card> cards) {
-        super(cards);
+    StraightFlush(CardSorter sorter) {
+        super(sorter);
         setName("Straight Flush");
     }
 
     @Override
     boolean match() {
         CardSorter sorter = getSorter();
-        ArrayList<Card> slots = new ArrayList<>();
         for (ArrayList<Card> group : sorter.sortRankGroupSuit()) {
             if (group.size() >= 5 &&
                     (group.get(0).getRank() != Rank.ACE ||
